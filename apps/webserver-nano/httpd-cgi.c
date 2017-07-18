@@ -1084,7 +1084,7 @@ PT_THREAD(ajax_call(struct httpd_state *s, char *ptr))
   while(1) {
   	iter++;
 
-#if CONTIKI_TARGET_SKY
+#if CONTIKI_TARGET_SKY || CONTIKI_TARGET_IOT
     SENSORS_ACTIVATE(sht11_sensor);
     SENSORS_ACTIVATE(light_sensor);
     numprinted = snprintf(buf, sizeof(buf),

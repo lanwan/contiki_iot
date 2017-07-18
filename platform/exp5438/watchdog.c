@@ -40,7 +40,7 @@ static int counter = 0;
 
 /*---------------------------------------------------------------------------*/
 #if PRINT_STACK_ON_REBOOT
-#ifdef CONTIKI_TARGET_SKY
+#if CONTIKI_TARGET_SKY || CONTIKI_TARGET_IOT
 static void
 printchar(char c)
 {

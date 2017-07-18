@@ -102,10 +102,10 @@ httpd_cgi_add(struct httpd_cgi_call *c)
   }
 }
 /*---------------------------------------------------------------------------*/
-#if CONTIKI_TARGET_SKY
+#if CONTIKI_TARGET_SKY || CONTIKI_TARGET_IOT
 #include "dev/sht11/sht11-sensor.h"
 #include "dev/light-sensor.h"
-#endif /* CONTIKI_TARGET_SKY */
+#endif /* CONTIKI_TARGET_SKY, CONTIKI_TARGET_IOT*/
 
 static
 PT_THREAD(sensorscall(struct httpd_state *s, char *ptr))
@@ -123,7 +123,7 @@ PT_THREAD(sensorscall(struct httpd_state *s, char *ptr))
     /*    timer_restart(&t);
 	  PSOCK_WAIT_UNTIL(&s->sout, timer_expired(&t));*/
 
-#if CONTIKI_TARGET_SKY
+#if CONTIKI_TARGET_SKY || CONTIKI_TARGET_IOT
     SENSORS_ACTIVATE(sht11_sensor);
     SENSORS_ACTIVATE(light_sensor);
     snprintf(buf, sizeof(buf),
@@ -134,14 +134,14 @@ PT_THREAD(sensorscall(struct httpd_state *s, char *ptr))
              light_sensor.value(LIGHT_SENSOR_TOTAL_SOLAR));
     SENSORS_DEACTIVATE(sht11_sensor);
     SENSORS_DEACTIVATE(light_sensor);
-#else /* CONTIKI_TARGET_SKY */
+#else /* CONTIKI_TARGET_SKY, CONTIKI_TARGET_IOT */
     snprintf(buf, sizeof(buf),
 	     "t(%d);h(%d);l1(%d);l2(%d);",
 	     0,
 	     0,
 	     0,
 	     0);
-#endif /* CONTIKI_TARGET_SKY */
+#endif /* CONTIKI_TARGET_SKY, CONTIKI_TARGET_IOT */
     PSOCK_SEND_STR(&s->sout, buf);
 
 

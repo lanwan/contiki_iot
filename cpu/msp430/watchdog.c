@@ -40,7 +40,7 @@ static int counter = 0;
 
 /*---------------------------------------------------------------------------*/
 #if PRINT_STACK_ON_REBOOT
-#ifdef CONTIKI_TARGET_SKY
+#if CONTIKI_TARGET_SKY || CONTIKI_TARGET_IOT
 static void
 printchar(char c)
 {
@@ -67,12 +67,12 @@ printstring(char *s)
     printchar(*s++);
   }
 }
-#endif /* CONTIKI_TARGET_SKY */
+#endif /* CONTIKI_TARGET_SKY | CONTIKI_TARGET_IOT */
 #endif /* PRINT_STACK_ON_REBOOT */
 /*---------------------------------------------------------------------------*/
 ISR(WDT, watchdog_interrupt)
 {
-#ifdef CONTIKI_TARGET_SKY
+#if CONTIKI_TARGET_SKY | CONTIKI_TARGET_IOT
 #if PRINT_STACK_ON_REBOOT
   uint8_t dummy;
   static uint8_t *ptr;
