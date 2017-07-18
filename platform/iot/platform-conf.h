@@ -43,8 +43,8 @@
  * Definitions below are dictated by the hardware and not really
  * changeable!
  */
-/* Platform TMOTE_SKY */
-#define TMOTE_SKY 1
+/* Platform CONTIKI_IOT */
+#define CONTIKI_IOT 1
 
 #define PLATFORM_HAS_LEDS    1
 #define PLATFORM_HAS_BUTTON  1
