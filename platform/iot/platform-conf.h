@@ -117,11 +117,11 @@ typedef unsigned long off_t;
 #define SPI_TXBUF U0TXBUF
 #define SPI_RXBUF U0RXBUF
 
-                                /* USART0 Tx ready? */
+/* USART0 Tx ready? */
 #define SPI_WAITFOREOTx() while ((U0TCTL & TXEPT) == 0)
-                                /* USART0 Rx ready? */
+/* USART0 Rx ready? */
 #define SPI_WAITFOREORx() while ((IFG1 & URXIFG0) == 0)
-                                /* USART0 Tx buffer ready? */
+/* USART0 Tx buffer ready? */
 #define SPI_WAITFORTxREADY() while ((IFG1 & UTXIFG0) == 0)
 
 #define SCK            1  /* P3.1 - Output: SPI Serial Clock (SCLK) */
@@ -204,9 +204,9 @@ typedef unsigned long off_t;
  * (Chip Select)
  */
 
- /* ENABLE CSn (active low) */
+/* ENABLE CSn (active low) */
 #define CC2420_SPI_ENABLE()     (CC2420_CSN_PORT(OUT) &= ~BV(CC2420_CSN_PIN))
- /* DISABLE CSn (active low) */
+/* DISABLE CSn (active low) */
 #define CC2420_SPI_DISABLE()    (CC2420_CSN_PORT(OUT) |=  BV(CC2420_CSN_PIN))
 #define CC2420_SPI_IS_ENABLED() ((CC2420_CSN_PORT(OUT) & BV(CC2420_CSN_PIN)) != BV(CC2420_CSN_PIN))
 

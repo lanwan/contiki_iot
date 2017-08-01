@@ -94,7 +94,7 @@ ISR(WDT, watchdog_interrupt)
   }
   printchar('\n');
 #endif /* PRINT_STACK_ON_REBOOT */
-#endif /* CONTIKI_TARGET_SKY */
+#endif /* CONTIKI_TARGET_SKY | CONTIKI_TARGET_IOT */
 
   watchdog_reboot();
 }

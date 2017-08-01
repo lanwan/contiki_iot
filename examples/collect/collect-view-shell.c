@@ -75,9 +75,9 @@ PROCESS_THREAD(collect_view_shell_process, ev, data)
   shell_time_init();
   /* shell_sendtest_init(); */
 
-#if CONTIKI_TARGET_SKY
+#if CONTIKI_TARGET_SKY | CONTIKI_TARGET_IOT
   shell_sky_init();
-#endif /* CONTIKI_TARGET_SKY */
+#endif /* CONTIKI_TARGET_SKY | CONTIKI_TARGET_IOT */
 
   shell_collect_view_init();
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Release" />
+	<File name="dev/sx1278/sx1278.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="20245" topLine="498" />
+		</Cursor>
+		<Folding>
+			<Collapse line="52" />
+			<Collapse line="60" />
+			<Collapse line="81" />
+			<Collapse line="89" />
+		</Folding>
+	</File>
+	<File name="cpu/cc253x/dev/cc2530-rf.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="14107" topLine="479" />
+		</Cursor>
+	</File>
+	<File name="dev/sx1278/sx.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="32896" topLine="856" />
+		</Cursor>
+	</File>
+	<File name="dev/sx1278/sx.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3499" topLine="68" />
+		</Cursor>
+		<Folding>
+			<Collapse line="44" />
+			<Collapse line="100" />
+			<Collapse line="151" />
+			<Collapse line="210" />
+			<Collapse line="261" />
+		</Folding>
+	</File>
+	<File name="dev/cc1100/cc1100.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="19167" topLine="485" />
+		</Cursor>
+	</File>
+</CodeBlocks_layout_file>

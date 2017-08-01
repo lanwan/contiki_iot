@@ -7,7 +7,6 @@ contiki-iot.a(contiki-iot-pla)
 contiki-iot.a(button-sensor.o)
                               contiki-iot.a(contiki-iot-pla) (button_sensor)
 contiki-iot.a(ds2411.o)       obj_iot/contiki-iot-main.o (ds2411_init)
-contiki-iot.a(xmem.o)         obj_iot/contiki-iot-main.o (xmem_init)
 contiki-iot.a(node-id.o)      obj_iot/contiki-iot-main.o (node_id_restore)
 contiki-iot.a(sensors.o)      contiki-iot.a(button-sensor.o) (sensors_changed)
 contiki-iot.a(cc2420.o)       obj_iot/contiki-iot-main.o (cc2420_set_pan_addr)
@@ -62,7 +61,8 @@ contiki-iot.a(packetbuf.o)    contiki-iot.a(framer.o) (packetbuf_compact)
 contiki-iot.a(queuebuf.o)     obj_iot/contiki-iot-main.o (queuebuf_init)
 contiki-iot.a(contikimac.o)   obj_iot/contiki-iot-main.o (contikimac_driver)
 contiki-iot.a(nullsec.o)      obj_iot/contiki-iot-main.o (nullsec_driver)
-contiki-iot.a(spi.o)          contiki-iot.a(xmem.o) (spi_init)
+contiki-iot.a(xmem.o)         obj_iot/contiki-iot-main.o (xmem_init)
+contiki-iot.a(spi.o)          contiki-iot.a(cc2420-arch.o) (spi_init)
 contiki-iot.a(compower.o)     contiki-iot.a(contikimac.o) (compower_accumulate)
 contiki-iot.a(stimer.o)       contiki-iot.a(uip-ds6.o) (stimer_set)
 contiki-iot.a(frame802154.o)  contiki-iot.a(framer-802154.o) (frame802154_hdrlen)
@@ -202,15 +202,6 @@ Discarded input sections
  .text          0x00000000        0x0 contiki-iot.a(ds2411.o)
  .data          0x00000000        0x0 contiki-iot.a(ds2411.o)
  .bss           0x00000000        0x0 contiki-iot.a(ds2411.o)
- .text          0x00000000        0x0 contiki-iot.a(xmem.o)
- .data          0x00000000        0x0 contiki-iot.a(xmem.o)
- .bss           0x00000000        0x0 contiki-iot.a(xmem.o)
- .text.write_enable
-                0x00000000       0x2a contiki-iot.a(xmem.o)
- .text.xmem_pwrite
-                0x00000000      0x150 contiki-iot.a(xmem.o)
- .text.xmem_erase
-                0x00000000       0xae contiki-iot.a(xmem.o)
  .text          0x00000000        0x0 contiki-iot.a(node-id.o)
  .data          0x00000000        0x0 contiki-iot.a(node-id.o)
  .text.node_id_burn
@@ -492,6 +483,15 @@ Discarded input sections
  .text          0x00000000        0x0 contiki-iot.a(nullsec.o)
  .data          0x00000000        0x0 contiki-iot.a(nullsec.o)
  .bss           0x00000000        0x0 contiki-iot.a(nullsec.o)
+ .text          0x00000000        0x0 contiki-iot.a(xmem.o)
+ .data          0x00000000        0x0 contiki-iot.a(xmem.o)
+ .bss           0x00000000        0x0 contiki-iot.a(xmem.o)
+ .text.write_enable
+                0x00000000       0x2a contiki-iot.a(xmem.o)
+ .text.xmem_pwrite
+                0x00000000      0x150 contiki-iot.a(xmem.o)
+ .text.xmem_erase
+                0x00000000       0xae contiki-iot.a(xmem.o)
  .text          0x00000000        0x0 contiki-iot.a(spi.o)
  .data          0x00000000        0x0 contiki-iot.a(spi.o)
  .bss           0x00000000        0x2 contiki-iot.a(spi.o)
@@ -951,965 +951,965 @@ LOAD /usr/lib/gcc/msp430/4.6.3/mmpy-16/libcrt0.a
  .text.ds2411_init
                 0x00004a26      0x112 contiki-iot.a(ds2411.o)
                 0x00004a26                ds2411_init
- .text.wait_ready
-                0x00004b38       0x50 contiki-iot.a(xmem.o)
- .text.xmem_init
-                0x00004b88       0x3e contiki-iot.a(xmem.o)
-                0x00004b88                xmem_init
- .text.xmem_pread
-                0x00004bc6       0xea contiki-iot.a(xmem.o)
-                0x00004bc6                xmem_pread
  .text.node_id_restore
-                0x00004cb0       0x38 contiki-iot.a(node-id.o)
-                0x00004cb0                node_id_restore
+                0x00004b38       0x38 contiki-iot.a(node-id.o)
+                0x00004b38                node_id_restore
  .text.process_thread_sensors_process
-                0x00004ce8       0xbe contiki-iot.a(sensors.o)
+                0x00004b70       0xbe contiki-iot.a(sensors.o)
  .text.sensors_changed
-                0x00004da6       0x2a contiki-iot.a(sensors.o)
-                0x00004da6                sensors_changed
+                0x00004c2e       0x2a contiki-iot.a(sensors.o)
+                0x00004c2e                sensors_changed
  .text.get_object
-                0x00004dd0        0x4 contiki-iot.a(cc2420.o)
+                0x00004c58        0x4 contiki-iot.a(cc2420.o)
  .text.set_object
-                0x00004dd4        0x4 contiki-iot.a(cc2420.o)
- .text.strobe   0x00004dd8       0x20 contiki-iot.a(cc2420.o)
- .text.getreg   0x00004df8       0x54 contiki-iot.a(cc2420.o)
- .text.setreg   0x00004e4c       0x52 contiki-iot.a(cc2420.o)
+                0x00004c5c        0x4 contiki-iot.a(cc2420.o)
+ .text.strobe   0x00004c60       0x20 contiki-iot.a(cc2420.o)
+ .text.getreg   0x00004c80       0x54 contiki-iot.a(cc2420.o)
+ .text.setreg   0x00004cd4       0x52 contiki-iot.a(cc2420.o)
  .text.write_ram
-                0x00004e9e       0x80 contiki-iot.a(cc2420.o)
+                0x00004d26       0x80 contiki-iot.a(cc2420.o)
  .text.write_fifo_buf
-                0x00004f1e       0x40 contiki-iot.a(cc2420.o)
+                0x00004da6       0x40 contiki-iot.a(cc2420.o)
  .text.get_status
-                0x00004f5e       0x24 contiki-iot.a(cc2420.o)
+                0x00004de6       0x24 contiki-iot.a(cc2420.o)
  .text.set_txpower
-                0x00004f82       0x26 contiki-iot.a(cc2420.o)
+                0x00004e0a       0x26 contiki-iot.a(cc2420.o)
  .text.cc2420_receiving_packet
-                0x00004fa8        0xe contiki-iot.a(cc2420.o)
+                0x00004e30        0xe contiki-iot.a(cc2420.o)
  .text.pending_packet
-                0x00004fb6        0x8 contiki-iot.a(cc2420.o)
- .text.on       0x00004fbe       0x1e contiki-iot.a(cc2420.o)
+                0x00004e3e        0x8 contiki-iot.a(cc2420.o)
+ .text.on       0x00004e46       0x1e contiki-iot.a(cc2420.o)
  .text.wait_for_transmission
-                0x00004fdc       0x22 contiki-iot.a(cc2420.o)
+                0x00004e64       0x22 contiki-iot.a(cc2420.o)
  .text.wait_for_status
-                0x00004ffe       0x2a contiki-iot.a(cc2420.o)
+                0x00004e86       0x2a contiki-iot.a(cc2420.o)
  .text.getrxdata
-                0x00005028       0x56 contiki-iot.a(cc2420.o)
- .text.flushrx  0x0000507e       0x1a contiki-iot.a(cc2420.o)
- .text.off      0x00005098       0x5a contiki-iot.a(cc2420.o)
+                0x00004eb0       0x56 contiki-iot.a(cc2420.o)
+ .text.flushrx  0x00004f06       0x1a contiki-iot.a(cc2420.o)
+ .text.off      0x00004f20       0x5a contiki-iot.a(cc2420.o)
  .text.RELEASE_LOCK
-                0x000050f2       0x28 contiki-iot.a(cc2420.o)
- .text.set_key  0x0000511a       0x18 contiki-iot.a(cc2420.o)
+                0x00004f7a       0x28 contiki-iot.a(cc2420.o)
+ .text.set_key  0x00004fa2       0x18 contiki-iot.a(cc2420.o)
  .text.cc2420_prepare
-                0x00005132       0x3c contiki-iot.a(cc2420.o)
+                0x00004fba       0x3c contiki-iot.a(cc2420.o)
  .text.cc2420_on
-                0x0000516e       0x22 contiki-iot.a(cc2420.o)
-                0x0000516e                cc2420_on
+                0x00004ff6       0x22 contiki-iot.a(cc2420.o)
+                0x00004ff6                cc2420_on
  .text.cc2420_off
-                0x00005190       0x30 contiki-iot.a(cc2420.o)
-                0x00005190                cc2420_off
+                0x00005018       0x30 contiki-iot.a(cc2420.o)
+                0x00005018                cc2420_off
  .text.cc2420_cca
-                0x000051c0       0x5e contiki-iot.a(cc2420.o)
+                0x00005048       0x5e contiki-iot.a(cc2420.o)
  .text.cc2420_read
-                0x0000521e       0xb0 contiki-iot.a(cc2420.o)
+                0x000050a6       0xb0 contiki-iot.a(cc2420.o)
  .text.process_thread_cc2420_process
-                0x000052ce       0x50 contiki-iot.a(cc2420.o)
- .text.encrypt  0x0000531e       0x8e contiki-iot.a(cc2420.o)
+                0x00005156       0x50 contiki-iot.a(cc2420.o)
+ .text.encrypt  0x000051a6       0x8e contiki-iot.a(cc2420.o)
  .text.cc2420_set_channel
-                0x000053ac       0x3c contiki-iot.a(cc2420.o)
-                0x000053ac                cc2420_set_channel
+                0x00005234       0x3c contiki-iot.a(cc2420.o)
+                0x00005234                cc2420_set_channel
  .text.cc2420_set_pan_addr
-                0x000053e8       0x4c contiki-iot.a(cc2420.o)
-                0x000053e8                cc2420_set_pan_addr
+                0x00005270       0x4c contiki-iot.a(cc2420.o)
+                0x00005270                cc2420_set_pan_addr
  .text.cc2420_interrupt
-                0x00005434       0x18 contiki-iot.a(cc2420.o)
-                0x00005434                cc2420_interrupt
+                0x000052bc       0x18 contiki-iot.a(cc2420.o)
+                0x000052bc                cc2420_interrupt
  .text.cc2420_set_txpower
-                0x0000544c        0xe contiki-iot.a(cc2420.o)
-                0x0000544c                cc2420_set_txpower
+                0x000052d4        0xe contiki-iot.a(cc2420.o)
+                0x000052d4                cc2420_set_txpower
  .text.cc2420_get_txpower
-                0x0000545a       0x1e contiki-iot.a(cc2420.o)
-                0x0000545a                cc2420_get_txpower
+                0x000052e2       0x1e contiki-iot.a(cc2420.o)
+                0x000052e2                cc2420_get_txpower
  .text.cc2420_transmit
-                0x00005478      0x10e contiki-iot.a(cc2420.o)
+                0x00005300      0x10e contiki-iot.a(cc2420.o)
  .text.cc2420_send
-                0x00005586       0x12 contiki-iot.a(cc2420.o)
+                0x0000540e       0x12 contiki-iot.a(cc2420.o)
  .text.cc2420_rssi
-                0x00005598       0x4c contiki-iot.a(cc2420.o)
-                0x00005598                cc2420_rssi
+                0x00005420       0x4c contiki-iot.a(cc2420.o)
+                0x00005420                cc2420_rssi
  .text.get_value
-                0x000055e4       0xac contiki-iot.a(cc2420.o)
+                0x0000546c       0xac contiki-iot.a(cc2420.o)
  .text.cc2420_set_cca_threshold
-                0x00005690       0x16 contiki-iot.a(cc2420.o)
-                0x00005690                cc2420_set_cca_threshold
+                0x00005518       0x16 contiki-iot.a(cc2420.o)
+                0x00005518                cc2420_set_cca_threshold
  .text.set_value
-                0x000056a6       0x8a contiki-iot.a(cc2420.o)
+                0x0000552e       0x8a contiki-iot.a(cc2420.o)
  .text.cc2420_init
-                0x00005730       0xde contiki-iot.a(cc2420.o)
-                0x00005730                cc2420_init
+                0x000055b8       0xde contiki-iot.a(cc2420.o)
+                0x000055b8                cc2420_init
  .text.cc2420_port1_interrupt
-                0x0000580e       0x62 contiki-iot.a(cc2420-arch.o)
-                0x0000580e                __isr_4
-                0x0000580e                cc2420_port1_interrupt
+                0x00005696       0x62 contiki-iot.a(cc2420-arch.o)
+                0x00005696                __isr_4
+                0x00005696                cc2420_port1_interrupt
  .text.cc2420_arch_init
-                0x00005870       0x1a contiki-iot.a(cc2420-arch.o)
-                0x00005870                cc2420_arch_init
+                0x000056f8       0x1a contiki-iot.a(cc2420-arch.o)
+                0x000056f8                cc2420_arch_init
  .text.uart1_active
-                0x0000588a       0x1a contiki-iot.a(uart1.o)
-                0x0000588a                uart1_active
+                0x00005712       0x1a contiki-iot.a(uart1.o)
+                0x00005712                uart1_active
  .text.uart1_writeb
-                0x000058a4       0x1a contiki-iot.a(uart1.o)
-                0x000058a4                uart1_writeb
+                0x0000572c       0x1a contiki-iot.a(uart1.o)
+                0x0000572c                uart1_writeb
  .text.uart1_init
-                0x000058be       0xf6 contiki-iot.a(uart1.o)
-                0x000058be                uart1_init
- .text.putchar  0x000059b4       0x10 contiki-iot.a(uart1-putchar.o)
-                0x000059b4                putchar
+                0x00005746       0xf6 contiki-iot.a(uart1.o)
+                0x00005746                uart1_init
+ .text.putchar  0x0000583c       0x10 contiki-iot.a(uart1-putchar.o)
+                0x0000583c                putchar
  .text.msp430_init_dco
-                0x000059c4       0x84 contiki-iot.a(msp430.o)
-                0x000059c4                msp430_init_dco
+                0x0000584c       0x84 contiki-iot.a(msp430.o)
+                0x0000584c                msp430_init_dco
  .text.msp430_add_lpm_req
-                0x00005a48        0xc contiki-iot.a(msp430.o)
-                0x00005a48                msp430_add_lpm_req
+                0x000058d0        0xc contiki-iot.a(msp430.o)
+                0x000058d0                msp430_add_lpm_req
  .text.msp430_cpu_init
-                0x00005a54       0x2a contiki-iot.a(msp430.o)
-                0x00005a54                msp430_cpu_init
+                0x000058dc       0x2a contiki-iot.a(msp430.o)
+                0x000058dc                msp430_cpu_init
  .text.splhigh_
-                0x00005a7e        0x8 contiki-iot.a(msp430.o)
-                0x00005a7e                splhigh_
+                0x00005906        0x8 contiki-iot.a(msp430.o)
+                0x00005906                splhigh_
  .text.msp430_sync_dco
-                0x00005a86       0x68 contiki-iot.a(msp430.o)
-                0x00005a86                msp430_sync_dco
- .text.timera1  0x00005aee      0x11e contiki-iot.a(clock.o)
-                0x00005aee                __isr_5
-                0x00005aee                timera1
+                0x0000590e       0x68 contiki-iot.a(msp430.o)
+                0x0000590e                msp430_sync_dco
+ .text.timera1  0x00005976      0x11e contiki-iot.a(clock.o)
+                0x00005976                __isr_5
+                0x00005976                timera1
  .text.clock_time
-                0x00005c0c       0x1a contiki-iot.a(clock.o)
-                0x00005c0c                clock_time
+                0x00005a94       0x1a contiki-iot.a(clock.o)
+                0x00005a94                clock_time
  .text.clock_init
-                0x00005c26       0x28 contiki-iot.a(clock.o)
-                0x00005c26                clock_init
+                0x00005aae       0x28 contiki-iot.a(clock.o)
+                0x00005aae                clock_init
  .text.clock_delay
-                0x00005c4e        0xc contiki-iot.a(clock.o)
-                0x00005c4e                clock_delay
+                0x00005ad6        0xc contiki-iot.a(clock.o)
+                0x00005ad6                clock_delay
  .text.clock_seconds
-                0x00005c5a       0x1a contiki-iot.a(clock.o)
-                0x00005c5a                clock_seconds
+                0x00005ae2       0x1a contiki-iot.a(clock.o)
+                0x00005ae2                clock_seconds
  .text.show_leds
-                0x00005c74       0xf6 contiki-iot.a(leds.o)
+                0x00005afc       0xf6 contiki-iot.a(leds.o)
  .text.leds_init
-                0x00005d6a        0xa contiki-iot.a(leds.o)
-                0x00005d6a                leds_init
- .text.leds_on  0x00005d74        0xa contiki-iot.a(leds.o)
-                0x00005d74                leds_on
+                0x00005bf2        0xa contiki-iot.a(leds.o)
+                0x00005bf2                leds_init
+ .text.leds_on  0x00005bfc        0xa contiki-iot.a(leds.o)
+                0x00005bfc                leds_on
  .text.leds_off
-                0x00005d7e        0xe contiki-iot.a(leds.o)
-                0x00005d7e                leds_off
+                0x00005c06        0xe contiki-iot.a(leds.o)
+                0x00005c06                leds_off
  .text.leds_arch_init
-                0x00005d8c        0xe contiki-iot.a(leds-arch.o)
-                0x00005d8c                leds_arch_init
+                0x00005c14        0xe contiki-iot.a(leds-arch.o)
+                0x00005c14                leds_arch_init
  .text.leds_arch_set
-                0x00005d9a       0x3a contiki-iot.a(leds-arch.o)
-                0x00005d9a                leds_arch_set
+                0x00005c22       0x3a contiki-iot.a(leds-arch.o)
+                0x00005c22                leds_arch_set
  .text.watchdog_interrupt
-                0x00005dd4        0x6 contiki-iot.a(watchdog.o)
-                0x00005dd4                __isr_10
-                0x00005dd4                watchdog_interrupt
+                0x00005c5c        0x6 contiki-iot.a(watchdog.o)
+                0x00005c5c                __isr_10
+                0x00005c5c                watchdog_interrupt
  .text.watchdog_start
-                0x00005dda       0x14 contiki-iot.a(watchdog.o)
-                0x00005dda                watchdog_start
+                0x00005c62       0x14 contiki-iot.a(watchdog.o)
+                0x00005c62                watchdog_start
  .text.watchdog_periodic
-                0x00005dee       0x12 contiki-iot.a(watchdog.o)
-                0x00005dee                watchdog_periodic
+                0x00005c76       0x12 contiki-iot.a(watchdog.o)
+                0x00005c76                watchdog_periodic
  .text.watchdog_stop
-                0x00005e00       0x16 contiki-iot.a(watchdog.o)
-                0x00005e00                watchdog_stop
+                0x00005c88       0x16 contiki-iot.a(watchdog.o)
+                0x00005c88                watchdog_stop
  .text.watchdog_init
-                0x00005e16       0x14 contiki-iot.a(watchdog.o)
-                0x00005e16                watchdog_init
+                0x00005c9e       0x14 contiki-iot.a(watchdog.o)
+                0x00005c9e                watchdog_init
  .text.rtimer_arch_init
-                0x00005e2a        0xe contiki-iot.a(rtimer-arch.o)
-                0x00005e2a                rtimer_arch_init
+                0x00005cb2        0xe contiki-iot.a(rtimer-arch.o)
+                0x00005cb2                rtimer_arch_init
  .text.rtimer_arch_now
-                0x00005e38        0xe contiki-iot.a(rtimer-arch.o)
-                0x00005e38                rtimer_arch_now
- .text.timera0  0x00005e46       0x70 contiki-iot.a(rtimer-arch.o)
-                0x00005e46                __isr_6
-                0x00005e46                timera0
+                0x00005cc0        0xe contiki-iot.a(rtimer-arch.o)
+                0x00005cc0                rtimer_arch_now
+ .text.timera0  0x00005cce       0x70 contiki-iot.a(rtimer-arch.o)
+                0x00005cce                __isr_6
+                0x00005cce                timera0
  .text.rtimer_arch_schedule
-                0x00005eb6        0x6 contiki-iot.a(rtimer-arch.o)
-                0x00005eb6                rtimer_arch_schedule
+                0x00005d3e        0x6 contiki-iot.a(rtimer-arch.o)
+                0x00005d3e                rtimer_arch_schedule
  .text.autostart_start
-                0x00005ebc       0x16 contiki-iot.a(autostart.o)
-                0x00005ebc                autostart_start
+                0x00005d44       0x16 contiki-iot.a(autostart.o)
+                0x00005d44                autostart_start
  .text.process_thread_ctimer_process
-                0x00005ed2       0xa4 contiki-iot.a(ctimer.o)
+                0x00005d5a       0xa4 contiki-iot.a(ctimer.o)
  .text.ctimer_init
-                0x00005f76       0x18 contiki-iot.a(ctimer.o)
-                0x00005f76                ctimer_init
+                0x00005dfe       0x18 contiki-iot.a(ctimer.o)
+                0x00005dfe                ctimer_init
  .text.ctimer_set
-                0x00005f8e       0x50 contiki-iot.a(ctimer.o)
-                0x00005f8e                ctimer_set
+                0x00005e16       0x50 contiki-iot.a(ctimer.o)
+                0x00005e16                ctimer_set
  .text.ctimer_reset
-                0x00005fde       0x30 contiki-iot.a(ctimer.o)
-                0x00005fde                ctimer_reset
+                0x00005e66       0x30 contiki-iot.a(ctimer.o)
+                0x00005e66                ctimer_reset
  .text.ctimer_stop
-                0x0000600e       0x28 contiki-iot.a(ctimer.o)
-                0x0000600e                ctimer_stop
+                0x00005e96       0x28 contiki-iot.a(ctimer.o)
+                0x00005e96                ctimer_stop
  .text.energest_init
-                0x00006036       0x28 contiki-iot.a(energest.o)
-                0x00006036                energest_init
+                0x00005ebe       0x28 contiki-iot.a(energest.o)
+                0x00005ebe                energest_init
  .text.energest_type_time
-                0x0000605e       0x46 contiki-iot.a(energest.o)
-                0x0000605e                energest_type_time
+                0x00005ee6       0x46 contiki-iot.a(energest.o)
+                0x00005ee6                energest_type_time
  .text.energest_type_set
-                0x000060a4        0xe contiki-iot.a(energest.o)
-                0x000060a4                energest_type_set
+                0x00005f2c        0xe contiki-iot.a(energest.o)
+                0x00005f2c                energest_type_set
  .text.energest_flush
-                0x000060b2       0x48 contiki-iot.a(energest.o)
-                0x000060b2                energest_flush
+                0x00005f3a       0x48 contiki-iot.a(energest.o)
+                0x00005f3a                energest_flush
  .text.update_time
-                0x000060fa       0x78 contiki-iot.a(etimer.o)
+                0x00005f82       0x78 contiki-iot.a(etimer.o)
  .text.etimer_request_poll
-                0x00006172        0xa contiki-iot.a(etimer.o)
-                0x00006172                etimer_request_poll
+                0x00005ffa        0xa contiki-iot.a(etimer.o)
+                0x00005ffa                etimer_request_poll
  .text.process_thread_etimer_process
-                0x0000617c       0xc8 contiki-iot.a(etimer.o)
+                0x00006004       0xc8 contiki-iot.a(etimer.o)
  .text.add_timer
-                0x00006244       0x40 contiki-iot.a(etimer.o)
+                0x000060cc       0x40 contiki-iot.a(etimer.o)
  .text.etimer_set
-                0x00006284       0x12 contiki-iot.a(etimer.o)
-                0x00006284                etimer_set
+                0x0000610c       0x12 contiki-iot.a(etimer.o)
+                0x0000610c                etimer_set
  .text.etimer_reset
-                0x00006296       0x12 contiki-iot.a(etimer.o)
-                0x00006296                etimer_reset
+                0x0000611e       0x12 contiki-iot.a(etimer.o)
+                0x0000611e                etimer_reset
  .text.etimer_restart
-                0x000062a8       0x12 contiki-iot.a(etimer.o)
-                0x000062a8                etimer_restart
+                0x00006130       0x12 contiki-iot.a(etimer.o)
+                0x00006130                etimer_restart
  .text.etimer_expired
-                0x000062ba        0xe contiki-iot.a(etimer.o)
-                0x000062ba                etimer_expired
+                0x00006142        0xe contiki-iot.a(etimer.o)
+                0x00006142                etimer_expired
  .text.etimer_expiration_time
-                0x000062c8       0x14 contiki-iot.a(etimer.o)
-                0x000062c8                etimer_expiration_time
+                0x00006150       0x14 contiki-iot.a(etimer.o)
+                0x00006150                etimer_expiration_time
  .text.etimer_pending
-                0x000062dc        0xc contiki-iot.a(etimer.o)
-                0x000062dc                etimer_pending
+                0x00006164        0xc contiki-iot.a(etimer.o)
+                0x00006164                etimer_pending
  .text.etimer_next_expiration_time
-                0x000062e8       0x16 contiki-iot.a(etimer.o)
-                0x000062e8                etimer_next_expiration_time
+                0x00006170       0x16 contiki-iot.a(etimer.o)
+                0x00006170                etimer_next_expiration_time
  .text.etimer_stop
-                0x000062fe       0x3c contiki-iot.a(etimer.o)
-                0x000062fe                etimer_stop
+                0x00006186       0x3c contiki-iot.a(etimer.o)
+                0x00006186                etimer_stop
  .text.call_process
-                0x0000633a       0x4a contiki-iot.a(process.o)
+                0x000061c2       0x4a contiki-iot.a(process.o)
  .text.exit_process
-                0x00006384       0x96 contiki-iot.a(process.o)
- .text.do_poll  0x0000641a       0x30 contiki-iot.a(process.o)
+                0x0000620c       0x96 contiki-iot.a(process.o)
+ .text.do_poll  0x000062a2       0x30 contiki-iot.a(process.o)
  .text.process_alloc_event
-                0x0000644a        0xe contiki-iot.a(process.o)
-                0x0000644a                process_alloc_event
+                0x000062d2        0xe contiki-iot.a(process.o)
+                0x000062d2                process_alloc_event
  .text.process_init
-                0x00006458       0x1c contiki-iot.a(process.o)
-                0x00006458                process_init
+                0x000062e0       0x1c contiki-iot.a(process.o)
+                0x000062e0                process_init
  .text.process_run
-                0x00006474       0xa2 contiki-iot.a(process.o)
-                0x00006474                process_run
+                0x000062fc       0xa2 contiki-iot.a(process.o)
+                0x000062fc                process_run
  .text.process_nevents
-                0x00006516        0xe contiki-iot.a(process.o)
-                0x00006516                process_nevents
+                0x0000639e        0xe contiki-iot.a(process.o)
+                0x0000639e                process_nevents
  .text.process_post
-                0x00006524       0x54 contiki-iot.a(process.o)
-                0x00006524                process_post
+                0x000063ac       0x54 contiki-iot.a(process.o)
+                0x000063ac                process_post
  .text.process_post_synch
-                0x00006578       0x12 contiki-iot.a(process.o)
-                0x00006578                process_post_synch
+                0x00006400       0x12 contiki-iot.a(process.o)
+                0x00006400                process_post_synch
  .text.process_start
-                0x0000658a       0x32 contiki-iot.a(process.o)
-                0x0000658a                process_start
+                0x00006412       0x32 contiki-iot.a(process.o)
+                0x00006412                process_start
  .text.process_poll
-                0x000065bc       0x18 contiki-iot.a(process.o)
-                0x000065bc                process_poll
+                0x00006444       0x18 contiki-iot.a(process.o)
+                0x00006444                process_poll
  .text.rtimer_init
-                0x000065d4        0x6 contiki-iot.a(rtimer.o)
-                0x000065d4                rtimer_init
+                0x0000645c        0x6 contiki-iot.a(rtimer.o)
+                0x0000645c                rtimer_init
  .text.rtimer_set
-                0x000065da       0x24 contiki-iot.a(rtimer.o)
-                0x000065da                rtimer_set
+                0x00006462       0x24 contiki-iot.a(rtimer.o)
+                0x00006462                rtimer_set
  .text.rtimer_run_next
-                0x000065fe       0x26 contiki-iot.a(rtimer.o)
-                0x000065fe                rtimer_run_next
+                0x00006486       0x26 contiki-iot.a(rtimer.o)
+                0x00006486                rtimer_run_next
  .text.timer_set
-                0x00006624       0x1c contiki-iot.a(timer.o)
-                0x00006624                timer_set
+                0x000064ac       0x1c contiki-iot.a(timer.o)
+                0x000064ac                timer_set
  .text.timer_reset
-                0x00006640        0xe contiki-iot.a(timer.o)
-                0x00006640                timer_reset
+                0x000064c8        0xe contiki-iot.a(timer.o)
+                0x000064c8                timer_reset
  .text.timer_restart
-                0x0000664e       0x14 contiki-iot.a(timer.o)
-                0x0000664e                timer_restart
+                0x000064d6       0x14 contiki-iot.a(timer.o)
+                0x000064d6                timer_restart
  .text.timer_expired
-                0x00006662       0x2a contiki-iot.a(timer.o)
-                0x00006662                timer_expired
+                0x000064ea       0x2a contiki-iot.a(timer.o)
+                0x000064ea                timer_expired
  .text.list_init
-                0x0000668c        0x6 contiki-iot.a(list.o)
-                0x0000668c                list_init
+                0x00006514        0x6 contiki-iot.a(list.o)
+                0x00006514                list_init
  .text.list_head
-                0x00006692        0x4 contiki-iot.a(list.o)
-                0x00006692                list_head
+                0x0000651a        0x4 contiki-iot.a(list.o)
+                0x0000651a                list_head
  .text.list_tail
-                0x00006696       0x12 contiki-iot.a(list.o)
-                0x00006696                list_tail
+                0x0000651e       0x12 contiki-iot.a(list.o)
+                0x0000651e                list_tail
  .text.list_remove
-                0x000066a8       0x34 contiki-iot.a(list.o)
-                0x000066a8                list_remove
+                0x00006530       0x34 contiki-iot.a(list.o)
+                0x00006530                list_remove
  .text.list_push
-                0x000066dc       0x1a contiki-iot.a(list.o)
-                0x000066dc                list_push
+                0x00006564       0x1a contiki-iot.a(list.o)
+                0x00006564                list_push
  .text.list_add
-                0x000066f6       0x2a contiki-iot.a(list.o)
-                0x000066f6                list_add
+                0x0000657e       0x2a contiki-iot.a(list.o)
+                0x0000657e                list_add
  .text.list_length
-                0x00006720       0x10 contiki-iot.a(list.o)
-                0x00006720                list_length
+                0x000065a8       0x10 contiki-iot.a(list.o)
+                0x000065a8                list_length
  .text.list_item_next
-                0x00006730        0xc contiki-iot.a(list.o)
-                0x00006730                list_item_next
+                0x000065b8        0xc contiki-iot.a(list.o)
+                0x000065b8                list_item_next
  .text.memb_init
-                0x0000673c       0x36 contiki-iot.a(memb.o)
-                0x0000673c                memb_init
+                0x000065c4       0x36 contiki-iot.a(memb.o)
+                0x000065c4                memb_init
  .text.memb_alloc
-                0x00006772       0x3e contiki-iot.a(memb.o)
-                0x00006772                memb_alloc
+                0x000065fa       0x3e contiki-iot.a(memb.o)
+                0x000065fa                memb_alloc
  .text.memb_free
-                0x000067b0       0x3a contiki-iot.a(memb.o)
-                0x000067b0                memb_free
+                0x00006638       0x3a contiki-iot.a(memb.o)
+                0x00006638                memb_free
  .text.memb_inmemb
-                0x000067ea       0x2e contiki-iot.a(memb.o)
-                0x000067ea                memb_inmemb
+                0x00006672       0x2e contiki-iot.a(memb.o)
+                0x00006672                memb_inmemb
  .text.memb_numfree
-                0x00006818       0x26 contiki-iot.a(memb.o)
-                0x00006818                memb_numfree
+                0x000066a0       0x26 contiki-iot.a(memb.o)
+                0x000066a0                memb_numfree
  .text.random_init
-                0x0000683e        0x6 contiki-iot.a(random.o)
-                0x0000683e                random_init
+                0x000066c6        0x6 contiki-iot.a(random.o)
+                0x000066c6                random_init
  .text.random_rand
-                0x00006844        0x6 contiki-iot.a(random.o)
-                0x00006844                random_rand
+                0x000066cc        0x6 contiki-iot.a(random.o)
+                0x000066cc                random_rand
  .text.set_packet_attrs
-                0x0000684a       0x44 contiki-iot.a(sicslowpan.o)
+                0x000066d2       0x44 contiki-iot.a(sicslowpan.o)
  .text.addr_context_lookup_by_number
-                0x0000688e       0x36 contiki-iot.a(sicslowpan.o)
+                0x00006716       0x36 contiki-iot.a(sicslowpan.o)
  .text.compress_addr_64
-                0x000068c4       0xae contiki-iot.a(sicslowpan.o)
+                0x0000674c       0xae contiki-iot.a(sicslowpan.o)
  .text.uncompress_addr
-                0x00006972       0xb4 contiki-iot.a(sicslowpan.o)
- .text.input    0x00006a26      0x65c contiki-iot.a(sicslowpan.o)
+                0x000067fa       0xb4 contiki-iot.a(sicslowpan.o)
+ .text.input    0x000068ae      0x65c contiki-iot.a(sicslowpan.o)
  .text.sicslowpan_init
-                0x00007082       0x26 contiki-iot.a(sicslowpan.o)
-                0x00007082                sicslowpan_init
+                0x00006f0a       0x26 contiki-iot.a(sicslowpan.o)
+                0x00006f0a                sicslowpan_init
  .text.addr_context_lookup_by_prefix
-                0x000070a8       0x4c contiki-iot.a(sicslowpan.o)
+                0x00006f30       0x4c contiki-iot.a(sicslowpan.o)
  .text.send_packet
-                0x000070f4       0x1a contiki-iot.a(sicslowpan.o)
- .text.output   0x0000710e      0x6da contiki-iot.a(sicslowpan.o)
+                0x00006f7c       0x1a contiki-iot.a(sicslowpan.o)
+ .text.output   0x00006f96      0x6da contiki-iot.a(sicslowpan.o)
  .text.packet_sent
-                0x000077e8       0x22 contiki-iot.a(sicslowpan.o)
- .text.chksum   0x0000780a       0x32 contiki-iot.a(uip6.o)
+                0x00007670       0x22 contiki-iot.a(sicslowpan.o)
+ .text.chksum   0x00007692       0x32 contiki-iot.a(uip6.o)
  .text.upper_layer_chksum
-                0x0000783c       0x56 contiki-iot.a(uip6.o)
+                0x000076c4       0x56 contiki-iot.a(uip6.o)
  .text.ext_hdr_options_process
-                0x00007892       0xda contiki-iot.a(uip6.o)
+                0x0000771a       0xda contiki-iot.a(uip6.o)
  .text.uip_add32
-                0x0000796c       0x68 contiki-iot.a(uip6.o)
-                0x0000796c                uip_add32
+                0x000077f4       0x68 contiki-iot.a(uip6.o)
+                0x000077f4                uip_add32
  .text.unlikely.uip_add_rcv_nxt
-                0x000079d4       0x2e contiki-iot.a(uip6.o)
+                0x0000785c       0x2e contiki-iot.a(uip6.o)
  .text.uip_icmp6chksum
-                0x00007a02        0xa contiki-iot.a(uip6.o)
-                0x00007a02                uip_icmp6chksum
+                0x0000788a        0xa contiki-iot.a(uip6.o)
+                0x0000788a                uip_icmp6chksum
  .text.uip_tcpchksum
-                0x00007a0c        0xa contiki-iot.a(uip6.o)
-                0x00007a0c                uip_tcpchksum
+                0x00007894        0xa contiki-iot.a(uip6.o)
+                0x00007894                uip_tcpchksum
  .text.uip_udpchksum
-                0x00007a16        0xa contiki-iot.a(uip6.o)
-                0x00007a16                uip_udpchksum
+                0x0000789e        0xa contiki-iot.a(uip6.o)
+                0x0000789e                uip_udpchksum
  .text.uip_init
-                0x00007a20       0x7a contiki-iot.a(uip6.o)
-                0x00007a20                uip_init
+                0x000078a8       0x7a contiki-iot.a(uip6.o)
+                0x000078a8                uip_init
  .text.remove_ext_hdr
-                0x00007a9a       0x5a contiki-iot.a(uip6.o)
-                0x00007a9a                remove_ext_hdr
+                0x00007922       0x5a contiki-iot.a(uip6.o)
+                0x00007922                remove_ext_hdr
  .text.uip_udp_new
-                0x00007af4       0xf4 contiki-iot.a(uip6.o)
-                0x00007af4                uip_udp_new
+                0x0000797c       0xf4 contiki-iot.a(uip6.o)
+                0x0000797c                uip_udp_new
  .text.uip_unlisten
-                0x00007be8       0x2a contiki-iot.a(uip6.o)
-                0x00007be8                uip_unlisten
+                0x00007a70       0x2a contiki-iot.a(uip6.o)
+                0x00007a70                uip_unlisten
  .text.uip_process
-                0x00007c12      0xe9e contiki-iot.a(uip6.o)
-                0x00007c12                uip_process
+                0x00007a9a      0xe9e contiki-iot.a(uip6.o)
+                0x00007a9a                uip_process
  .text.uip_htonl
-                0x00008ab0       0x2e contiki-iot.a(uip6.o)
-                0x00008ab0                uip_htonl
+                0x00008938       0x2e contiki-iot.a(uip6.o)
+                0x00008938                uip_htonl
  .text.uip_ds6_list_loop
-                0x00008ade       0x86 contiki-iot.a(uip-ds6.o)
-                0x00008ade                uip_ds6_list_loop
+                0x00008966       0x86 contiki-iot.a(uip-ds6.o)
+                0x00008966                uip_ds6_list_loop
  .text.uip_ds6_prefix_add
-                0x00008b64       0x80 contiki-iot.a(uip-ds6.o)
-                0x00008b64                uip_ds6_prefix_add
+                0x000089ec       0x80 contiki-iot.a(uip-ds6.o)
+                0x000089ec                uip_ds6_prefix_add
  .text.uip_ds6_is_addr_onlink
-                0x00008be4       0x54 contiki-iot.a(uip-ds6.o)
-                0x00008be4                uip_ds6_is_addr_onlink
+                0x00008a6c       0x54 contiki-iot.a(uip-ds6.o)
+                0x00008a6c                uip_ds6_is_addr_onlink
  .text.uip_ds6_addr_lookup
-                0x00008c38       0x2a contiki-iot.a(uip-ds6.o)
-                0x00008c38                uip_ds6_addr_lookup
+                0x00008ac0       0x2a contiki-iot.a(uip-ds6.o)
+                0x00008ac0                uip_ds6_addr_lookup
  .text.uip_ds6_get_link_local
-                0x00008c62       0x3e contiki-iot.a(uip-ds6.o)
-                0x00008c62                uip_ds6_get_link_local
+                0x00008aea       0x3e contiki-iot.a(uip-ds6.o)
+                0x00008aea                uip_ds6_get_link_local
  .text.uip_ds6_maddr_add
-                0x00008ca0       0x4c contiki-iot.a(uip-ds6.o)
-                0x00008ca0                uip_ds6_maddr_add
+                0x00008b28       0x4c contiki-iot.a(uip-ds6.o)
+                0x00008b28                uip_ds6_maddr_add
  .text.uip_ds6_addr_add
-                0x00008cec       0xc4 contiki-iot.a(uip-ds6.o)
-                0x00008cec                uip_ds6_addr_add
+                0x00008b74       0xc4 contiki-iot.a(uip-ds6.o)
+                0x00008b74                uip_ds6_addr_add
  .text.uip_ds6_maddr_lookup
-                0x00008db0       0x2a contiki-iot.a(uip-ds6.o)
-                0x00008db0                uip_ds6_maddr_lookup
+                0x00008c38       0x2a contiki-iot.a(uip-ds6.o)
+                0x00008c38                uip_ds6_maddr_lookup
  .text.uip_ds6_addr_rm
-                0x00008dda       0x54 contiki-iot.a(uip-ds6.o)
-                0x00008dda                uip_ds6_addr_rm
+                0x00008c62       0x54 contiki-iot.a(uip-ds6.o)
+                0x00008c62                uip_ds6_addr_rm
  .text.uip_ds6_periodic
-                0x00008e2e       0x4a contiki-iot.a(uip-ds6.o)
-                0x00008e2e                uip_ds6_periodic
+                0x00008cb6       0x4a contiki-iot.a(uip-ds6.o)
+                0x00008cb6                uip_ds6_periodic
  .text.uip_ds6_set_addr_iid
-                0x00008e78       0x14 contiki-iot.a(uip-ds6.o)
-                0x00008e78                uip_ds6_set_addr_iid
+                0x00008d00       0x14 contiki-iot.a(uip-ds6.o)
+                0x00008d00                uip_ds6_set_addr_iid
  .text.get_match_length
-                0x00008e8c       0x3e contiki-iot.a(uip-ds6.o)
-                0x00008e8c                get_match_length
+                0x00008d14       0x3e contiki-iot.a(uip-ds6.o)
+                0x00008d14                get_match_length
  .text.uip_ds6_select_src
-                0x00008eca       0xaa contiki-iot.a(uip-ds6.o)
-                0x00008eca                uip_ds6_select_src
+                0x00008d52       0xaa contiki-iot.a(uip-ds6.o)
+                0x00008d52                uip_ds6_select_src
  .text.uip_ds6_compute_reachable_time
-                0x00008f74       0x3e contiki-iot.a(uip-ds6.o)
-                0x00008f74                uip_ds6_compute_reachable_time
+                0x00008dfc       0x3e contiki-iot.a(uip-ds6.o)
+                0x00008dfc                uip_ds6_compute_reachable_time
  .text.uip_ds6_init
-                0x00008fb2      0x154 contiki-iot.a(uip-ds6.o)
-                0x00008fb2                uip_ds6_init
+                0x00008e3a      0x154 contiki-iot.a(uip-ds6.o)
+                0x00008e3a                uip_ds6_init
  .text.uip_ds6_nbr_rm
-                0x00009106       0x1a contiki-iot.a(uip-ds6-nbr.o)
-                0x00009106                uip_ds6_nbr_rm
+                0x00008f8e       0x1a contiki-iot.a(uip-ds6-nbr.o)
+                0x00008f8e                uip_ds6_nbr_rm
  .text.uip_ds6_neighbors_init
-                0x00009120        0xe contiki-iot.a(uip-ds6-nbr.o)
-                0x00009120                uip_ds6_neighbors_init
+                0x00008fa8        0xe contiki-iot.a(uip-ds6-nbr.o)
+                0x00008fa8                uip_ds6_neighbors_init
  .text.uip_ds6_nbr_add
-                0x0000912e       0x60 contiki-iot.a(uip-ds6-nbr.o)
-                0x0000912e                uip_ds6_nbr_add
+                0x00008fb6       0x60 contiki-iot.a(uip-ds6-nbr.o)
+                0x00008fb6                uip_ds6_nbr_add
  .text.uip_ds6_nbr_get_ll
-                0x0000918e        0xc contiki-iot.a(uip-ds6-nbr.o)
-                0x0000918e                uip_ds6_nbr_get_ll
+                0x00009016        0xc contiki-iot.a(uip-ds6-nbr.o)
+                0x00009016                uip_ds6_nbr_get_ll
  .text.uip_ds6_nbr_lookup
-                0x0000919a       0x42 contiki-iot.a(uip-ds6-nbr.o)
-                0x0000919a                uip_ds6_nbr_lookup
+                0x00009022       0x42 contiki-iot.a(uip-ds6-nbr.o)
+                0x00009022                uip_ds6_nbr_lookup
  .text.uip_ds6_nbr_ll_lookup
-                0x000091dc        0xc contiki-iot.a(uip-ds6-nbr.o)
-                0x000091dc                uip_ds6_nbr_ll_lookup
+                0x00009064        0xc contiki-iot.a(uip-ds6-nbr.o)
+                0x00009064                uip_ds6_nbr_ll_lookup
  .text.uip_ds6_nbr_ipaddr_from_lladdr
-                0x000091e8        0x6 contiki-iot.a(uip-ds6-nbr.o)
-                0x000091e8                uip_ds6_nbr_ipaddr_from_lladdr
+                0x00009070        0x6 contiki-iot.a(uip-ds6-nbr.o)
+                0x00009070                uip_ds6_nbr_ipaddr_from_lladdr
  .text.uip_ds6_nbr_lladdr_from_ipaddr
-                0x000091ee       0x12 contiki-iot.a(uip-ds6-nbr.o)
-                0x000091ee                uip_ds6_nbr_lladdr_from_ipaddr
+                0x00009076       0x12 contiki-iot.a(uip-ds6-nbr.o)
+                0x00009076                uip_ds6_nbr_lladdr_from_ipaddr
  .text.uip_ds6_link_neighbor_callback
-                0x00009200       0x2a contiki-iot.a(uip-ds6-nbr.o)
-                0x00009200                uip_ds6_link_neighbor_callback
+                0x00009088       0x2a contiki-iot.a(uip-ds6-nbr.o)
+                0x00009088                uip_ds6_link_neighbor_callback
  .text.uip_ds6_neighbor_periodic
-                0x0000922a       0x60 contiki-iot.a(uip-ds6-nbr.o)
-                0x0000922a                uip_ds6_neighbor_periodic
+                0x000090b2       0x60 contiki-iot.a(uip-ds6-nbr.o)
+                0x000090b2                uip_ds6_neighbor_periodic
  .text.call_route_callback
-                0x0000928a       0x4c contiki-iot.a(uip-ds6-route.o)
+                0x00009112       0x4c contiki-iot.a(uip-ds6-route.o)
  .text.uip_ds6_route_init
-                0x000092d6       0x36 contiki-iot.a(uip-ds6-route.o)
-                0x000092d6                uip_ds6_route_init
+                0x0000915e       0x36 contiki-iot.a(uip-ds6-route.o)
+                0x0000915e                uip_ds6_route_init
  .text.uip_ds6_route_nexthop
-                0x0000930c       0x1a contiki-iot.a(uip-ds6-route.o)
-                0x0000930c                uip_ds6_route_nexthop
+                0x00009194       0x1a contiki-iot.a(uip-ds6-route.o)
+                0x00009194                uip_ds6_route_nexthop
  .text.uip_ds6_route_head
-                0x00009326        0xa contiki-iot.a(uip-ds6-route.o)
-                0x00009326                uip_ds6_route_head
+                0x000091ae        0xa contiki-iot.a(uip-ds6-route.o)
+                0x000091ae                uip_ds6_route_head
  .text.uip_ds6_route_next
-                0x00009330        0xe contiki-iot.a(uip-ds6-route.o)
-                0x00009330                uip_ds6_route_next
+                0x000091b8        0xe contiki-iot.a(uip-ds6-route.o)
+                0x000091b8                uip_ds6_route_next
  .text.uip_ds6_route_lookup
-                0x0000933e       0x8c contiki-iot.a(uip-ds6-route.o)
-                0x0000933e                uip_ds6_route_lookup
+                0x000091c6       0x8c contiki-iot.a(uip-ds6-route.o)
+                0x000091c6                uip_ds6_route_lookup
  .text.uip_ds6_route_rm
-                0x000093ca       0xa4 contiki-iot.a(uip-ds6-route.o)
-                0x000093ca                uip_ds6_route_rm
+                0x00009252       0xa4 contiki-iot.a(uip-ds6-route.o)
+                0x00009252                uip_ds6_route_rm
  .text.rm_routelist
-                0x0000946e       0x34 contiki-iot.a(uip-ds6-route.o)
+                0x000092f6       0x34 contiki-iot.a(uip-ds6-route.o)
  .text.rm_routelist_callback
-                0x000094a2        0x6 contiki-iot.a(uip-ds6-route.o)
+                0x0000932a        0x6 contiki-iot.a(uip-ds6-route.o)
  .text.uip_ds6_route_add
-                0x000094a8      0x10c contiki-iot.a(uip-ds6-route.o)
-                0x000094a8                uip_ds6_route_add
+                0x00009330      0x10c contiki-iot.a(uip-ds6-route.o)
+                0x00009330                uip_ds6_route_add
  .text.uip_ds6_defrt_rm
-                0x000095b4       0x48 contiki-iot.a(uip-ds6-route.o)
-                0x000095b4                uip_ds6_defrt_rm
+                0x0000943c       0x48 contiki-iot.a(uip-ds6-route.o)
+                0x0000943c                uip_ds6_defrt_rm
  .text.uip_ds6_defrt_lookup
-                0x000095fc       0x36 contiki-iot.a(uip-ds6-route.o)
-                0x000095fc                uip_ds6_defrt_lookup
+                0x00009484       0x36 contiki-iot.a(uip-ds6-route.o)
+                0x00009484                uip_ds6_defrt_lookup
  .text.uip_ds6_defrt_add
-                0x00009632       0x74 contiki-iot.a(uip-ds6-route.o)
-                0x00009632                uip_ds6_defrt_add
+                0x000094ba       0x74 contiki-iot.a(uip-ds6-route.o)
+                0x000094ba                uip_ds6_defrt_add
  .text.uip_ds6_defrt_choose
-                0x000096a6       0x3a contiki-iot.a(uip-ds6-route.o)
-                0x000096a6                uip_ds6_defrt_choose
+                0x0000952e       0x3a contiki-iot.a(uip-ds6-route.o)
+                0x0000952e                uip_ds6_defrt_choose
  .text.uip_ds6_defrt_periodic
-                0x000096e0       0x38 contiki-iot.a(uip-ds6-route.o)
-                0x000096e0                uip_ds6_defrt_periodic
+                0x00009568       0x38 contiki-iot.a(uip-ds6-route.o)
+                0x00009568                uip_ds6_defrt_periodic
  .text.echo_reply_input
-                0x00009718      0x112 contiki-iot.a(uip-icmp6.o)
+                0x000095a0      0x112 contiki-iot.a(uip-icmp6.o)
  .text.echo_request_input
-                0x0000982a      0x12c contiki-iot.a(uip-icmp6.o)
+                0x000096b2      0x12c contiki-iot.a(uip-icmp6.o)
  .text.uip_icmp6_input
-                0x00009956       0x44 contiki-iot.a(uip-icmp6.o)
-                0x00009956                uip_icmp6_input
+                0x000097de       0x44 contiki-iot.a(uip-icmp6.o)
+                0x000097de                uip_icmp6_input
  .text.uip_icmp6_register_input_handler
-                0x0000999a        0xc contiki-iot.a(uip-icmp6.o)
-                0x0000999a                uip_icmp6_register_input_handler
+                0x00009822        0xc contiki-iot.a(uip-icmp6.o)
+                0x00009822                uip_icmp6_register_input_handler
  .text.uip_icmp6_error_output
-                0x000099a6      0x17a contiki-iot.a(uip-icmp6.o)
-                0x000099a6                uip_icmp6_error_output
+                0x0000982e      0x17a contiki-iot.a(uip-icmp6.o)
+                0x0000982e                uip_icmp6_error_output
  .text.uip_icmp6_send
-                0x00009b20       0x96 contiki-iot.a(uip-icmp6.o)
-                0x00009b20                uip_icmp6_send
+                0x000099a8       0x96 contiki-iot.a(uip-icmp6.o)
+                0x000099a8                uip_icmp6_send
  .text.uip_icmp6_init
-                0x00009bb6       0x12 contiki-iot.a(uip-icmp6.o)
-                0x00009bb6                uip_icmp6_init
+                0x00009a3e       0x12 contiki-iot.a(uip-icmp6.o)
+                0x00009a3e                uip_icmp6_init
  .text.uip_nd6_init
-                0x00009bc8        0x2 contiki-iot.a(uip-nd6.o)
-                0x00009bc8                uip_nd6_init
+                0x00009a50        0x2 contiki-iot.a(uip-nd6.o)
+                0x00009a50                uip_nd6_init
  .text.process_thread_simple_udp_process
-                0x00009bca       0xac contiki-iot.a(simple-udp.o)
+                0x00009a52       0xac contiki-iot.a(simple-udp.o)
  .text.simple_udp_register
-                0x00009c76       0x9a contiki-iot.a(simple-udp.o)
-                0x00009c76                simple_udp_register
+                0x00009afe       0x9a contiki-iot.a(simple-udp.o)
+                0x00009afe                simple_udp_register
  .text.start_periodic_tcp_timer
-                0x00009d10       0x16 contiki-iot.a(tcpip.o)
+                0x00009b98       0x16 contiki-iot.a(tcpip.o)
  .text.tcpip_output
-                0x00009d26       0x10 contiki-iot.a(tcpip.o)
-                0x00009d26                tcpip_output
+                0x00009bae       0x10 contiki-iot.a(tcpip.o)
+                0x00009bae                tcpip_output
  .text.tcpip_set_outputfunc
-                0x00009d36        0x6 contiki-iot.a(tcpip.o)
-                0x00009d36                tcpip_set_outputfunc
- .text.udp_new  0x00009d3c       0x1a contiki-iot.a(tcpip.o)
-                0x00009d3c                udp_new
+                0x00009bbe        0x6 contiki-iot.a(tcpip.o)
+                0x00009bbe                tcpip_set_outputfunc
+ .text.udp_new  0x00009bc4       0x1a contiki-iot.a(tcpip.o)
+                0x00009bc4                udp_new
  .text.udp_broadcast_new
-                0x00009d56       0x46 contiki-iot.a(tcpip.o)
-                0x00009d56                udp_broadcast_new
+                0x00009bde       0x46 contiki-iot.a(tcpip.o)
+                0x00009bde                udp_broadcast_new
  .text.tcpip_input
-                0x00009d9c       0x16 contiki-iot.a(tcpip.o)
-                0x00009d9c                tcpip_input
+                0x00009c24       0x16 contiki-iot.a(tcpip.o)
+                0x00009c24                tcpip_input
  .text.tcpip_ipv6_output
-                0x00009db2       0xce contiki-iot.a(tcpip.o)
-                0x00009db2                tcpip_ipv6_output
+                0x00009c3a       0xce contiki-iot.a(tcpip.o)
+                0x00009c3a                tcpip_ipv6_output
  .text.process_thread_tcpip_process
-                0x00009e80      0x1d0 contiki-iot.a(tcpip.o)
+                0x00009d08      0x1d0 contiki-iot.a(tcpip.o)
  .text.tcpip_uipcall
-                0x0000a050       0x72 contiki-iot.a(tcpip.o)
-                0x0000a050                tcpip_uipcall
+                0x00009ed8       0x72 contiki-iot.a(tcpip.o)
+                0x00009ed8                tcpip_uipcall
  .text.uip_debug_ipaddr_print
-                0x0000a0c2       0x7c contiki-iot.a(uip-debug.o)
-                0x0000a0c2                uip_debug_ipaddr_print
+                0x00009f4a       0x7c contiki-iot.a(uip-debug.o)
+                0x00009f4a                uip_debug_ipaddr_print
  .text.uip_udp_packet_send
-                0x0000a13e       0x2e contiki-iot.a(uip-udp-packet.)
-                0x0000a13e                uip_udp_packet_send
+                0x00009fc6       0x2e contiki-iot.a(uip-udp-packet.)
+                0x00009fc6                uip_udp_packet_send
  .text.rpl_get_mode
-                0x0000a16c        0x6 contiki-iot.a(rpl.o)
-                0x0000a16c                rpl_get_mode
+                0x00009ff4        0x6 contiki-iot.a(rpl.o)
+                0x00009ff4                rpl_get_mode
  .text.rpl_purge_routes
-                0x0000a172       0x96 contiki-iot.a(rpl.o)
-                0x0000a172                rpl_purge_routes
+                0x00009ffa       0x96 contiki-iot.a(rpl.o)
+                0x00009ffa                rpl_purge_routes
  .text.rpl_remove_routes
-                0x0000a208       0x22 contiki-iot.a(rpl.o)
-                0x0000a208                rpl_remove_routes
+                0x0000a090       0x22 contiki-iot.a(rpl.o)
+                0x0000a090                rpl_remove_routes
  .text.rpl_remove_routes_by_nexthop
-                0x0000a22a       0x46 contiki-iot.a(rpl.o)
-                0x0000a22a                rpl_remove_routes_by_nexthop
+                0x0000a0b2       0x46 contiki-iot.a(rpl.o)
+                0x0000a0b2                rpl_remove_routes_by_nexthop
  .text.rpl_add_route
-                0x0000a270       0x44 contiki-iot.a(rpl.o)
-                0x0000a270                rpl_add_route
+                0x0000a0f8       0x44 contiki-iot.a(rpl.o)
+                0x0000a0f8                rpl_add_route
  .text.rpl_link_neighbor_callback
-                0x0000a2b4       0x7c contiki-iot.a(rpl.o)
-                0x0000a2b4                rpl_link_neighbor_callback
+                0x0000a13c       0x7c contiki-iot.a(rpl.o)
+                0x0000a13c                rpl_link_neighbor_callback
  .text.rpl_ipv6_neighbor_callback
-                0x0000a330       0x1e contiki-iot.a(rpl.o)
-                0x0000a330                rpl_ipv6_neighbor_callback
+                0x0000a1b8       0x1e contiki-iot.a(rpl.o)
+                0x0000a1b8                rpl_ipv6_neighbor_callback
  .text.rpl_init
-                0x0000a34e       0x4a contiki-iot.a(rpl.o)
-                0x0000a34e                rpl_init
+                0x0000a1d6       0x4a contiki-iot.a(rpl.o)
+                0x0000a1d6                rpl_init
  .text.lollipop_greater_than
-                0x0000a398       0x44 contiki-iot.a(rpl-dag.o)
+                0x0000a220       0x44 contiki-iot.a(rpl-dag.o)
  .text.acceptable_rank
-                0x0000a3dc       0x50 contiki-iot.a(rpl-dag.o)
+                0x0000a264       0x50 contiki-iot.a(rpl-dag.o)
  .text.find_parent_any_dag_any_instance
-                0x0000a42c       0x14 contiki-iot.a(rpl-dag.o)
+                0x0000a2b4       0x14 contiki-iot.a(rpl-dag.o)
  .text.rpl_set_preferred_parent
-                0x0000a440       0x30 contiki-iot.a(rpl-dag.o)
+                0x0000a2c8       0x30 contiki-iot.a(rpl-dag.o)
  .text.set_ip_from_prefix
-                0x0000a470       0x38 contiki-iot.a(rpl-dag.o)
+                0x0000a2f8       0x38 contiki-iot.a(rpl-dag.o)
  .text.check_prefix
-                0x0000a4a8       0x80 contiki-iot.a(rpl-dag.o)
+                0x0000a330       0x80 contiki-iot.a(rpl-dag.o)
  .text.rpl_get_nbr
-                0x0000a528       0x1e contiki-iot.a(rpl-dag.o)
-                0x0000a528                rpl_get_nbr
+                0x0000a3b0       0x1e contiki-iot.a(rpl-dag.o)
+                0x0000a3b0                rpl_get_nbr
  .text.rpl_dag_init
-                0x0000a546        0xe contiki-iot.a(rpl-dag.o)
-                0x0000a546                rpl_dag_init
+                0x0000a3ce        0xe contiki-iot.a(rpl-dag.o)
+                0x0000a3ce                rpl_dag_init
  .text.rpl_get_parent
-                0x0000a554        0xc contiki-iot.a(rpl-dag.o)
-                0x0000a554                rpl_get_parent
+                0x0000a3dc        0xc contiki-iot.a(rpl-dag.o)
+                0x0000a3dc                rpl_get_parent
  .text.rpl_get_parent_ipaddr
-                0x0000a560       0x10 contiki-iot.a(rpl-dag.o)
-                0x0000a560                rpl_get_parent_ipaddr
+                0x0000a3e8       0x10 contiki-iot.a(rpl-dag.o)
+                0x0000a3e8                rpl_get_parent_ipaddr
  .text.rpl_set_prefix
-                0x0000a570       0x8e contiki-iot.a(rpl-dag.o)
-                0x0000a570                rpl_set_prefix
+                0x0000a3f8       0x8e contiki-iot.a(rpl-dag.o)
+                0x0000a3f8                rpl_set_prefix
  .text.rpl_set_default_route
-                0x0000a5fe       0x5a contiki-iot.a(rpl-dag.o)
-                0x0000a5fe                rpl_set_default_route
+                0x0000a486       0x5a contiki-iot.a(rpl-dag.o)
+                0x0000a486                rpl_set_default_route
  .text.rpl_alloc_instance
-                0x0000a658       0x34 contiki-iot.a(rpl-dag.o)
-                0x0000a658                rpl_alloc_instance
+                0x0000a4e0       0x34 contiki-iot.a(rpl-dag.o)
+                0x0000a4e0                rpl_alloc_instance
  .text.rpl_add_parent
-                0x0000a68c       0x56 contiki-iot.a(rpl-dag.o)
-                0x0000a68c                rpl_add_parent
+                0x0000a514       0x56 contiki-iot.a(rpl-dag.o)
+                0x0000a514                rpl_add_parent
  .text.rpl_find_parent
-                0x0000a6e2       0x1a contiki-iot.a(rpl-dag.o)
-                0x0000a6e2                rpl_find_parent
+                0x0000a56a       0x1a contiki-iot.a(rpl-dag.o)
+                0x0000a56a                rpl_find_parent
  .text.rpl_find_parent_any_dag
-                0x0000a6fc       0x22 contiki-iot.a(rpl-dag.o)
-                0x0000a6fc                rpl_find_parent_any_dag
+                0x0000a584       0x22 contiki-iot.a(rpl-dag.o)
+                0x0000a584                rpl_find_parent_any_dag
  .text.rpl_select_parent
-                0x0000a71e       0x7e contiki-iot.a(rpl-dag.o)
-                0x0000a71e                rpl_select_parent
+                0x0000a5a6       0x7e contiki-iot.a(rpl-dag.o)
+                0x0000a5a6                rpl_select_parent
  .text.rpl_select_dag
-                0x0000a79c      0x182 contiki-iot.a(rpl-dag.o)
-                0x0000a79c                rpl_select_dag
+                0x0000a624      0x182 contiki-iot.a(rpl-dag.o)
+                0x0000a624                rpl_select_dag
  .text.rpl_nullify_parent
-                0x0000a91e       0x54 contiki-iot.a(rpl-dag.o)
-                0x0000a91e                rpl_nullify_parent
+                0x0000a7a6       0x54 contiki-iot.a(rpl-dag.o)
+                0x0000a7a6                rpl_nullify_parent
  .text.rpl_remove_parent
-                0x0000a972       0x16 contiki-iot.a(rpl-dag.o)
-                0x0000a972                rpl_remove_parent
+                0x0000a7fa       0x16 contiki-iot.a(rpl-dag.o)
+                0x0000a7fa                rpl_remove_parent
  .text.nbr_callback
-                0x0000a988        0x6 contiki-iot.a(rpl-dag.o)
+                0x0000a810        0x6 contiki-iot.a(rpl-dag.o)
  .text.remove_parents.constprop.2
-                0x0000a98e       0x32 contiki-iot.a(rpl-dag.o)
+                0x0000a816       0x32 contiki-iot.a(rpl-dag.o)
  .text.rpl_free_dag
-                0x0000a9c0       0x36 contiki-iot.a(rpl-dag.o)
-                0x0000a9c0                rpl_free_dag
+                0x0000a848       0x36 contiki-iot.a(rpl-dag.o)
+                0x0000a848                rpl_free_dag
  .text.rpl_move_parent
-                0x0000a9f6       0x5a contiki-iot.a(rpl-dag.o)
-                0x0000a9f6                rpl_move_parent
+                0x0000a87e       0x5a contiki-iot.a(rpl-dag.o)
+                0x0000a87e                rpl_move_parent
  .text.rpl_get_any_dag
-                0x0000aa50       0x18 contiki-iot.a(rpl-dag.o)
-                0x0000aa50                rpl_get_any_dag
+                0x0000a8d8       0x18 contiki-iot.a(rpl-dag.o)
+                0x0000a8d8                rpl_get_any_dag
  .text.rpl_get_instance
-                0x0000aa68       0x1a contiki-iot.a(rpl-dag.o)
-                0x0000aa68                rpl_get_instance
+                0x0000a8f0       0x1a contiki-iot.a(rpl-dag.o)
+                0x0000a8f0                rpl_get_instance
  .text.rpl_alloc_dag
-                0x0000aa82       0x60 contiki-iot.a(rpl-dag.o)
-                0x0000aa82                rpl_alloc_dag
+                0x0000a90a       0x60 contiki-iot.a(rpl-dag.o)
+                0x0000a90a                rpl_alloc_dag
  .text.rpl_repair_root
-                0x0000aae2       0x50 contiki-iot.a(rpl-dag.o)
-                0x0000aae2                rpl_repair_root
+                0x0000a96a       0x50 contiki-iot.a(rpl-dag.o)
+                0x0000a96a                rpl_repair_root
  .text.rpl_set_root
-                0x0000ab32      0x136 contiki-iot.a(rpl-dag.o)
-                0x0000ab32                rpl_set_root
+                0x0000a9ba      0x136 contiki-iot.a(rpl-dag.o)
+                0x0000a9ba                rpl_set_root
  .text.rpl_find_of
-                0x0000ac68       0x10 contiki-iot.a(rpl-dag.o)
-                0x0000ac68                rpl_find_of
+                0x0000aaf0       0x10 contiki-iot.a(rpl-dag.o)
+                0x0000aaf0                rpl_find_of
  .text.rpl_join_instance
-                0x0000ac78      0x13c contiki-iot.a(rpl-dag.o)
-                0x0000ac78                rpl_join_instance
+                0x0000ab00      0x13c contiki-iot.a(rpl-dag.o)
+                0x0000ab00                rpl_join_instance
  .text.rpl_local_repair
-                0x0000adb4       0x7c contiki-iot.a(rpl-dag.o)
-                0x0000adb4                rpl_local_repair
+                0x0000ac3c       0x7c contiki-iot.a(rpl-dag.o)
+                0x0000ac3c                rpl_local_repair
  .text.rpl_process_parent_event
-                0x0000ae30       0x4e contiki-iot.a(rpl-dag.o)
-                0x0000ae30                rpl_process_parent_event
+                0x0000acb8       0x4e contiki-iot.a(rpl-dag.o)
+                0x0000acb8                rpl_process_parent_event
  .text.rpl_recalculate_ranks
-                0x0000ae7e       0x48 contiki-iot.a(rpl-dag.o)
-                0x0000ae7e                rpl_recalculate_ranks
+                0x0000ad06       0x48 contiki-iot.a(rpl-dag.o)
+                0x0000ad06                rpl_recalculate_ranks
  .text.rpl_add_dag
-                0x0000aec6      0x112 contiki-iot.a(rpl-dag.o)
-                0x0000aec6                rpl_add_dag
+                0x0000ad4e      0x112 contiki-iot.a(rpl-dag.o)
+                0x0000ad4e                rpl_add_dag
  .text.rpl_process_dio
-                0x0000afd8      0x2e2 contiki-iot.a(rpl-dag.o)
-                0x0000afd8                rpl_process_dio
+                0x0000ae60      0x2e2 contiki-iot.a(rpl-dag.o)
+                0x0000ae60                rpl_process_dio
  .text.rpl_lock_parent
-                0x0000b2ba        0xc contiki-iot.a(rpl-dag.o)
-                0x0000b2ba                rpl_lock_parent
+                0x0000b142        0xc contiki-iot.a(rpl-dag.o)
+                0x0000b142                rpl_lock_parent
  .text.rpl_verify_header
-                0x0000b2c6       0xba contiki-iot.a(rpl-ext-header.)
-                0x0000b2c6                rpl_verify_header
+                0x0000b14e       0xba contiki-iot.a(rpl-ext-header.)
+                0x0000b14e                rpl_verify_header
  .text.rpl_update_header_empty
-                0x0000b380      0x126 contiki-iot.a(rpl-ext-header.)
-                0x0000b380                rpl_update_header_empty
+                0x0000b208      0x126 contiki-iot.a(rpl-ext-header.)
+                0x0000b208                rpl_update_header_empty
  .text.rpl_update_header_final
-                0x0000b4a6       0x94 contiki-iot.a(rpl-ext-header.)
-                0x0000b4a6                rpl_update_header_final
+                0x0000b32e       0x94 contiki-iot.a(rpl-ext-header.)
+                0x0000b32e                rpl_update_header_final
  .text.rpl_invert_header
-                0x0000b53a       0x7a contiki-iot.a(rpl-ext-header.)
-                0x0000b53a                rpl_invert_header
+                0x0000b3c2       0x7a contiki-iot.a(rpl-ext-header.)
+                0x0000b3c2                rpl_invert_header
  .text.rpl_insert_header
-                0x0000b5b4       0x12 contiki-iot.a(rpl-ext-header.)
-                0x0000b5b4                rpl_insert_header
- .text.get32    0x0000b5c6       0x46 contiki-iot.a(rpl-icmp6.o)
- .text.set32    0x0000b60c       0x2a contiki-iot.a(rpl-icmp6.o)
- .text.get16    0x0000b636        0xe contiki-iot.a(rpl-icmp6.o)
- .text.set16    0x0000b644       0x10 contiki-iot.a(rpl-icmp6.o)
+                0x0000b43c       0x12 contiki-iot.a(rpl-ext-header.)
+                0x0000b43c                rpl_insert_header
+ .text.get32    0x0000b44e       0x46 contiki-iot.a(rpl-icmp6.o)
+ .text.set32    0x0000b494       0x2a contiki-iot.a(rpl-icmp6.o)
+ .text.get16    0x0000b4be        0xe contiki-iot.a(rpl-icmp6.o)
+ .text.set16    0x0000b4cc       0x10 contiki-iot.a(rpl-icmp6.o)
  .text.dao_ack_input
-                0x0000b654        0x6 contiki-iot.a(rpl-icmp6.o)
+                0x0000b4dc        0x6 contiki-iot.a(rpl-icmp6.o)
  .text.dio_input
-                0x0000b65a      0x2d2 contiki-iot.a(rpl-icmp6.o)
+                0x0000b4e2      0x2d2 contiki-iot.a(rpl-icmp6.o)
  .text.dis_output
-                0x0000b92c       0x50 contiki-iot.a(rpl-icmp6.o)
-                0x0000b92c                dis_output
+                0x0000b7b4       0x50 contiki-iot.a(rpl-icmp6.o)
+                0x0000b7b4                dis_output
  .text.dio_output
-                0x0000b97c      0x268 contiki-iot.a(rpl-icmp6.o)
-                0x0000b97c                dio_output
+                0x0000b804      0x268 contiki-iot.a(rpl-icmp6.o)
+                0x0000b804                dio_output
  .text.dis_input
-                0x0000bbe4       0x28 contiki-iot.a(rpl-icmp6.o)
+                0x0000ba6c       0x28 contiki-iot.a(rpl-icmp6.o)
  .text.dao_output_target
-                0x0000bc0c       0xea contiki-iot.a(rpl-icmp6.o)
-                0x0000bc0c                dao_output_target
+                0x0000ba94       0xea contiki-iot.a(rpl-icmp6.o)
+                0x0000ba94                dao_output_target
  .text.dao_output
-                0x0000bcf6       0x80 contiki-iot.a(rpl-icmp6.o)
-                0x0000bcf6                dao_output
+                0x0000bb7e       0x80 contiki-iot.a(rpl-icmp6.o)
+                0x0000bb7e                dao_output
  .text.dao_ack_output
-                0x0000bd76       0x32 contiki-iot.a(rpl-icmp6.o)
-                0x0000bd76                dao_ack_output
+                0x0000bbfe       0x32 contiki-iot.a(rpl-icmp6.o)
+                0x0000bbfe                dao_ack_output
  .text.dao_input
-                0x0000bda8      0x2a8 contiki-iot.a(rpl-icmp6.o)
+                0x0000bc30      0x2a8 contiki-iot.a(rpl-icmp6.o)
  .text.rpl_icmp6_register_handlers
-                0x0000c050       0x22 contiki-iot.a(rpl-icmp6.o)
-                0x0000c050                rpl_icmp6_register_handlers
- .text.reset    0x0000c072        0x2 contiki-iot.a(rpl-mrhof.o)
+                0x0000bed8       0x22 contiki-iot.a(rpl-icmp6.o)
+                0x0000bed8                rpl_icmp6_register_handlers
+ .text.reset    0x0000befa        0x2 contiki-iot.a(rpl-mrhof.o)
  .text.update_metric_container
-                0x0000c074        0x6 contiki-iot.a(rpl-mrhof.o)
+                0x0000befc        0x6 contiki-iot.a(rpl-mrhof.o)
  .text.calculate_rank
-                0x0000c07a       0x3e contiki-iot.a(rpl-mrhof.o)
+                0x0000bf02       0x3e contiki-iot.a(rpl-mrhof.o)
  .text.best_parent
-                0x0000c0b8       0x74 contiki-iot.a(rpl-mrhof.o)
+                0x0000bf40       0x74 contiki-iot.a(rpl-mrhof.o)
  .text.neighbor_link_callback
-                0x0000c12c       0xa2 contiki-iot.a(rpl-mrhof.o)
+                0x0000bfb4       0xa2 contiki-iot.a(rpl-mrhof.o)
  .text.best_dag
-                0x0000c1ce       0x34 contiki-iot.a(rpl-mrhof.o)
+                0x0000c056       0x34 contiki-iot.a(rpl-mrhof.o)
  .text.new_dio_interval
-                0x0000c202       0x92 contiki-iot.a(rpl-timers.o)
+                0x0000c08a       0x92 contiki-iot.a(rpl-timers.o)
  .text.handle_periodic_timer
-                0x0000c294       0x2e contiki-iot.a(rpl-timers.o)
+                0x0000c11c       0x2e contiki-iot.a(rpl-timers.o)
  .text.set_dao_lifetime_timer
-                0x0000c2c2       0x52 contiki-iot.a(rpl-timers.o)
+                0x0000c14a       0x52 contiki-iot.a(rpl-timers.o)
  .text.schedule_dao
-                0x0000c314       0x82 contiki-iot.a(rpl-timers.o)
+                0x0000c19c       0x82 contiki-iot.a(rpl-timers.o)
  .text.handle_dio_timer
-                0x0000c396       0x88 contiki-iot.a(rpl-timers.o)
+                0x0000c21e       0x88 contiki-iot.a(rpl-timers.o)
  .text.handle_dao_timer
-                0x0000c41e       0x64 contiki-iot.a(rpl-timers.o)
+                0x0000c2a6       0x64 contiki-iot.a(rpl-timers.o)
  .text.rpl_reset_periodic_timer
-                0x0000c482       0x60 contiki-iot.a(rpl-timers.o)
-                0x0000c482                rpl_reset_periodic_timer
+                0x0000c30a       0x60 contiki-iot.a(rpl-timers.o)
+                0x0000c30a                rpl_reset_periodic_timer
  .text.rpl_reset_dio_timer
-                0x0000c4e2       0x18 contiki-iot.a(rpl-timers.o)
-                0x0000c4e2                rpl_reset_dio_timer
+                0x0000c36a       0x18 contiki-iot.a(rpl-timers.o)
+                0x0000c36a                rpl_reset_dio_timer
  .text.rpl_schedule_dao
-                0x0000c4fa        0xc contiki-iot.a(rpl-timers.o)
-                0x0000c4fa                rpl_schedule_dao
+                0x0000c382        0xc contiki-iot.a(rpl-timers.o)
+                0x0000c382                rpl_schedule_dao
  .text.rpl_schedule_probing
-                0x0000c506       0x3c contiki-iot.a(rpl-timers.o)
-                0x0000c506                rpl_schedule_probing
+                0x0000c38e       0x3c contiki-iot.a(rpl-timers.o)
+                0x0000c38e                rpl_schedule_probing
  .text.handle_probing_timer
-                0x0000c542      0x124 contiki-iot.a(rpl-timers.o)
+                0x0000c3ca      0x124 contiki-iot.a(rpl-timers.o)
  .text.input_packet
-                0x0000c666        0x6 contiki-iot.a(csma.o)
- .text.on       0x0000c66c        0x6 contiki-iot.a(csma.o)
- .text.off      0x0000c672        0x6 contiki-iot.a(csma.o)
+                0x0000c4ee        0x6 contiki-iot.a(csma.o)
+ .text.on       0x0000c4f4        0x6 contiki-iot.a(csma.o)
+ .text.off      0x0000c4fa        0x6 contiki-iot.a(csma.o)
  .text.channel_check_interval
-                0x0000c678       0x10 contiki-iot.a(csma.o)
+                0x0000c500       0x10 contiki-iot.a(csma.o)
  .text.transmit_packet_list
-                0x0000c688       0x24 contiki-iot.a(csma.o)
+                0x0000c510       0x24 contiki-iot.a(csma.o)
  .text.send_packet
-                0x0000c6ac      0x17a contiki-iot.a(csma.o)
- .text.init     0x0000c826       0x1a contiki-iot.a(csma.o)
+                0x0000c534      0x17a contiki-iot.a(csma.o)
+ .text.init     0x0000c6ae       0x1a contiki-iot.a(csma.o)
  .text.free_packet
-                0x0000c840       0x9c contiki-iot.a(csma.o)
+                0x0000c6c8       0x9c contiki-iot.a(csma.o)
  .text.packet_sent
-                0x0000c8dc      0x130 contiki-iot.a(csma.o)
- .text.parse    0x0000ca0c       0xa0 contiki-iot.a(framer-802154.o)
+                0x0000c764      0x130 contiki-iot.a(csma.o)
+ .text.parse    0x0000c894       0xa0 contiki-iot.a(framer-802154.o)
  .text.create_frame.isra.0
-                0x0000caac      0x108 contiki-iot.a(framer-802154.o)
- .text.create   0x0000cbb4        0x8 contiki-iot.a(framer-802154.o)
+                0x0000c934      0x108 contiki-iot.a(framer-802154.o)
+ .text.create   0x0000ca3c        0x8 contiki-iot.a(framer-802154.o)
  .text.hdr_length
-                0x0000cbbc        0x8 contiki-iot.a(framer-802154.o)
+                0x0000ca44        0x8 contiki-iot.a(framer-802154.o)
  .text.framer_canonical_create_and_secure
-                0x0000cbc4       0x20 contiki-iot.a(framer.o)
-                0x0000cbc4                framer_canonical_create_and_secure
+                0x0000ca4c       0x20 contiki-iot.a(framer.o)
+                0x0000ca4c                framer_canonical_create_and_secure
  .text.mac_call_sent_callback
-                0x0000cbe4       0x14 contiki-iot.a(mac.o)
-                0x0000cbe4                mac_call_sent_callback
+                0x0000ca6c       0x14 contiki-iot.a(mac.o)
+                0x0000ca6c                mac_call_sent_callback
  .text.linkaddr_copy
-                0x0000cbf8        0x8 contiki-iot.a(linkaddr.o)
-                0x0000cbf8                linkaddr_copy
+                0x0000ca80        0x8 contiki-iot.a(linkaddr.o)
+                0x0000ca80                linkaddr_copy
  .text.linkaddr_cmp
-                0x0000cc00       0x12 contiki-iot.a(linkaddr.o)
-                0x0000cc00                linkaddr_cmp
+                0x0000ca88       0x12 contiki-iot.a(linkaddr.o)
+                0x0000ca88                linkaddr_cmp
  .text.linkaddr_set_node_addr
-                0x0000cc12        0xc contiki-iot.a(linkaddr.o)
-                0x0000cc12                linkaddr_set_node_addr
+                0x0000ca9a        0xc contiki-iot.a(linkaddr.o)
+                0x0000ca9a                linkaddr_set_node_addr
  .text.index_from_key
-                0x0000cc1e       0x48 contiki-iot.a(nbr-table.o)
+                0x0000caa6       0x48 contiki-iot.a(nbr-table.o)
  .text.item_from_key
-                0x0000cc66       0x34 contiki-iot.a(nbr-table.o)
+                0x0000caee       0x34 contiki-iot.a(nbr-table.o)
  .text.nbr_set_bit
-                0x0000cc9a       0x8e contiki-iot.a(nbr-table.o)
+                0x0000cb22       0x8e contiki-iot.a(nbr-table.o)
  .text.index_from_lladdr
-                0x0000cd28       0x42 contiki-iot.a(nbr-table.o)
+                0x0000cbb0       0x42 contiki-iot.a(nbr-table.o)
  .text.nbr_get_bit.constprop.0
-                0x0000cd6a       0x62 contiki-iot.a(nbr-table.o)
+                0x0000cbf2       0x62 contiki-iot.a(nbr-table.o)
  .text.nbr_table_register
-                0x0000cdcc       0x28 contiki-iot.a(nbr-table.o)
-                0x0000cdcc                nbr_table_register
+                0x0000cc54       0x28 contiki-iot.a(nbr-table.o)
+                0x0000cc54                nbr_table_register
  .text.nbr_table_next
-                0x0000cdf4       0x90 contiki-iot.a(nbr-table.o)
-                0x0000cdf4                nbr_table_next
+                0x0000cc7c       0x90 contiki-iot.a(nbr-table.o)
+                0x0000cc7c                nbr_table_next
  .text.nbr_table_head
-                0x0000ce84       0x36 contiki-iot.a(nbr-table.o)
-                0x0000ce84                nbr_table_head
+                0x0000cd0c       0x36 contiki-iot.a(nbr-table.o)
+                0x0000cd0c                nbr_table_head
  .text.nbr_table_add_lladdr
-                0x0000ceba      0x144 contiki-iot.a(nbr-table.o)
-                0x0000ceba                nbr_table_add_lladdr
+                0x0000cd42      0x144 contiki-iot.a(nbr-table.o)
+                0x0000cd42                nbr_table_add_lladdr
  .text.nbr_table_get_from_lladdr
-                0x0000cffe       0x48 contiki-iot.a(nbr-table.o)
-                0x0000cffe                nbr_table_get_from_lladdr
+                0x0000ce86       0x48 contiki-iot.a(nbr-table.o)
+                0x0000ce86                nbr_table_get_from_lladdr
  .text.nbr_table_remove
-                0x0000d046       0x32 contiki-iot.a(nbr-table.o)
-                0x0000d046                nbr_table_remove
+                0x0000cece       0x32 contiki-iot.a(nbr-table.o)
+                0x0000cece                nbr_table_remove
  .text.nbr_table_lock
-                0x0000d078       0x10 contiki-iot.a(nbr-table.o)
-                0x0000d078                nbr_table_lock
+                0x0000cf00       0x10 contiki-iot.a(nbr-table.o)
+                0x0000cf00                nbr_table_lock
  .text.nbr_table_unlock
-                0x0000d088       0x10 contiki-iot.a(nbr-table.o)
-                0x0000d088                nbr_table_unlock
+                0x0000cf10       0x10 contiki-iot.a(nbr-table.o)
+                0x0000cf10                nbr_table_unlock
  .text.nbr_table_get_lladdr
-                0x0000d098       0x5a contiki-iot.a(nbr-table.o)
-                0x0000d098                nbr_table_get_lladdr
+                0x0000cf20       0x5a contiki-iot.a(nbr-table.o)
+                0x0000cf20                nbr_table_get_lladdr
  .text.packetbuf_compact
-                0x0000d0f2       0x2e contiki-iot.a(packetbuf.o)
-                0x0000d0f2                packetbuf_compact
+                0x0000cf7a       0x2e contiki-iot.a(packetbuf.o)
+                0x0000cf7a                packetbuf_compact
  .text.packetbuf_copyto
-                0x0000d120       0x52 contiki-iot.a(packetbuf.o)
-                0x0000d120                packetbuf_copyto
+                0x0000cfa8       0x52 contiki-iot.a(packetbuf.o)
+                0x0000cfa8                packetbuf_copyto
  .text.packetbuf_hdrreduce
-                0x0000d172       0x1a contiki-iot.a(packetbuf.o)
-                0x0000d172                packetbuf_hdrreduce
+                0x0000cffa       0x1a contiki-iot.a(packetbuf.o)
+                0x0000cffa                packetbuf_hdrreduce
  .text.packetbuf_set_datalen
-                0x0000d18c        0x6 contiki-iot.a(packetbuf.o)
-                0x0000d18c                packetbuf_set_datalen
+                0x0000d014        0x6 contiki-iot.a(packetbuf.o)
+                0x0000d014                packetbuf_set_datalen
  .text.packetbuf_dataptr
-                0x0000d192        0xe contiki-iot.a(packetbuf.o)
-                0x0000d192                packetbuf_dataptr
+                0x0000d01a        0xe contiki-iot.a(packetbuf.o)
+                0x0000d01a                packetbuf_dataptr
  .text.packetbuf_hdrptr
-                0x0000d1a0        0xa contiki-iot.a(packetbuf.o)
-                0x0000d1a0                packetbuf_hdrptr
+                0x0000d028        0xa contiki-iot.a(packetbuf.o)
+                0x0000d028                packetbuf_hdrptr
  .text.packetbuf_datalen
-                0x0000d1aa        0x6 contiki-iot.a(packetbuf.o)
-                0x0000d1aa                packetbuf_datalen
+                0x0000d032        0x6 contiki-iot.a(packetbuf.o)
+                0x0000d032                packetbuf_datalen
  .text.packetbuf_hdrlen
-                0x0000d1b0       0x10 contiki-iot.a(packetbuf.o)
-                0x0000d1b0                packetbuf_hdrlen
+                0x0000d038       0x10 contiki-iot.a(packetbuf.o)
+                0x0000d038                packetbuf_hdrlen
  .text.packetbuf_totlen
-                0x0000d1c0        0xc contiki-iot.a(packetbuf.o)
-                0x0000d1c0                packetbuf_totlen
+                0x0000d048        0xc contiki-iot.a(packetbuf.o)
+                0x0000d048                packetbuf_totlen
  .text.packetbuf_hdralloc
-                0x0000d1cc       0x2e contiki-iot.a(packetbuf.o)
-                0x0000d1cc                packetbuf_hdralloc
+                0x0000d054       0x2e contiki-iot.a(packetbuf.o)
+                0x0000d054                packetbuf_hdralloc
  .text.packetbuf_attr_clear
-                0x0000d1fa       0x28 contiki-iot.a(packetbuf.o)
-                0x0000d1fa                packetbuf_attr_clear
+                0x0000d082       0x28 contiki-iot.a(packetbuf.o)
+                0x0000d082                packetbuf_attr_clear
  .text.packetbuf_clear
-                0x0000d222       0x1a contiki-iot.a(packetbuf.o)
-                0x0000d222                packetbuf_clear
+                0x0000d0aa       0x1a contiki-iot.a(packetbuf.o)
+                0x0000d0aa                packetbuf_clear
  .text.packetbuf_copyfrom
-                0x0000d23c       0x2e contiki-iot.a(packetbuf.o)
-                0x0000d23c                packetbuf_copyfrom
+                0x0000d0c4       0x2e contiki-iot.a(packetbuf.o)
+                0x0000d0c4                packetbuf_copyfrom
  .text.packetbuf_attr_copyto
-                0x0000d26a       0x22 contiki-iot.a(packetbuf.o)
-                0x0000d26a                packetbuf_attr_copyto
+                0x0000d0f2       0x22 contiki-iot.a(packetbuf.o)
+                0x0000d0f2                packetbuf_attr_copyto
  .text.packetbuf_attr_copyfrom
-                0x0000d28c       0x24 contiki-iot.a(packetbuf.o)
-                0x0000d28c                packetbuf_attr_copyfrom
+                0x0000d114       0x24 contiki-iot.a(packetbuf.o)
+                0x0000d114                packetbuf_attr_copyfrom
  .text.packetbuf_holds_broadcast
-                0x0000d2b0        0xe contiki-iot.a(packetbuf.o)
-                0x0000d2b0                packetbuf_holds_broadcast
+                0x0000d138        0xe contiki-iot.a(packetbuf.o)
+                0x0000d138                packetbuf_holds_broadcast
  .text.queuebuf_init
-                0x0000d2be       0x12 contiki-iot.a(queuebuf.o)
-                0x0000d2be                queuebuf_init
+                0x0000d146       0x12 contiki-iot.a(queuebuf.o)
+                0x0000d146                queuebuf_init
  .text.queuebuf_numfree
-                0x0000d2d0        0xa contiki-iot.a(queuebuf.o)
-                0x0000d2d0                queuebuf_numfree
+                0x0000d158        0xa contiki-iot.a(queuebuf.o)
+                0x0000d158                queuebuf_numfree
  .text.queuebuf_new_from_packetbuf
-                0x0000d2da       0x52 contiki-iot.a(queuebuf.o)
-                0x0000d2da                queuebuf_new_from_packetbuf
+                0x0000d162       0x52 contiki-iot.a(queuebuf.o)
+                0x0000d162                queuebuf_new_from_packetbuf
  .text.queuebuf_update_attr_from_packetbuf
-                0x0000d32c       0x12 contiki-iot.a(queuebuf.o)
-                0x0000d32c                queuebuf_update_attr_from_packetbuf
+                0x0000d1b4       0x12 contiki-iot.a(queuebuf.o)
+                0x0000d1b4                queuebuf_update_attr_from_packetbuf
  .text.queuebuf_update_from_packetbuf
-                0x0000d33e       0x22 contiki-iot.a(queuebuf.o)
-                0x0000d33e                queuebuf_update_from_packetbuf
+                0x0000d1c6       0x22 contiki-iot.a(queuebuf.o)
+                0x0000d1c6                queuebuf_update_from_packetbuf
  .text.queuebuf_free
-                0x0000d360       0x2a contiki-iot.a(queuebuf.o)
-                0x0000d360                queuebuf_free
+                0x0000d1e8       0x2a contiki-iot.a(queuebuf.o)
+                0x0000d1e8                queuebuf_free
  .text.queuebuf_to_packetbuf
-                0x0000d38a       0x32 contiki-iot.a(queuebuf.o)
-                0x0000d38a                queuebuf_to_packetbuf
+                0x0000d212       0x32 contiki-iot.a(queuebuf.o)
+                0x0000d212                queuebuf_to_packetbuf
  .text.queuebuf_attr
-                0x0000d3bc        0xe contiki-iot.a(queuebuf.o)
-                0x0000d3bc                queuebuf_attr
+                0x0000d244        0xe contiki-iot.a(queuebuf.o)
+                0x0000d244                queuebuf_attr
  .text.duty_cycle
-                0x0000d3ca        0x6 contiki-iot.a(contikimac.o)
- .text.init     0x0000d3d0       0x2a contiki-iot.a(contikimac.o)
- .text.on       0x0000d3fa       0x1a contiki-iot.a(contikimac.o)
- .text.off      0x0000d414       0x22 contiki-iot.a(contikimac.o)
+                0x0000d252        0x6 contiki-iot.a(contikimac.o)
+ .text.init     0x0000d258       0x2a contiki-iot.a(contikimac.o)
+ .text.on       0x0000d282       0x1a contiki-iot.a(contikimac.o)
+ .text.off      0x0000d29c       0x22 contiki-iot.a(contikimac.o)
  .text.recv_burst_off
-                0x0000d436        0xa contiki-iot.a(contikimac.o)
+                0x0000d2be        0xa contiki-iot.a(contikimac.o)
  .text.turn_off
-                0x0000d440       0x20 contiki-iot.a(contikimac.o)
- .text.turn_on  0x0000d460       0x30 contiki-iot.a(contikimac.o)
+                0x0000d2c8       0x20 contiki-iot.a(contikimac.o)
+ .text.turn_on  0x0000d2e8       0x30 contiki-iot.a(contikimac.o)
  .text.schedule_powercycle_fixed.part.4
-                0x0000d490       0x36 contiki-iot.a(contikimac.o)
+                0x0000d318       0x36 contiki-iot.a(contikimac.o)
  .text.powercycle_turn_radio_off
-                0x0000d4c6       0x30 contiki-iot.a(contikimac.o)
+                0x0000d34e       0x30 contiki-iot.a(contikimac.o)
  .text.powercycle
-                0x0000d4f6      0x1d2 contiki-iot.a(contikimac.o)
+                0x0000d37e      0x1d2 contiki-iot.a(contikimac.o)
  .text.input_packet
-                0x0000d6c8       0xb2 contiki-iot.a(contikimac.o)
+                0x0000d550       0xb2 contiki-iot.a(contikimac.o)
  .text.send_packet.isra.7
-                0x0000d77a      0x1ec contiki-iot.a(contikimac.o)
+                0x0000d602      0x1ec contiki-iot.a(contikimac.o)
  .text.qsend_list
-                0x0000d966       0xc4 contiki-iot.a(contikimac.o)
+                0x0000d7ee       0xc4 contiki-iot.a(contikimac.o)
  .text.qsend_packet
-                0x0000da2a       0x28 contiki-iot.a(contikimac.o)
+                0x0000d8b2       0x28 contiki-iot.a(contikimac.o)
  .text.bootstrap
-                0x0000da52        0x4 contiki-iot.a(nullsec.o)
- .text.send     0x0000da56        0xa contiki-iot.a(nullsec.o)
+                0x0000d8da        0x4 contiki-iot.a(nullsec.o)
+ .text.send     0x0000d8de        0xa contiki-iot.a(nullsec.o)
  .text.on_frame_created
-                0x0000da60        0x4 contiki-iot.a(nullsec.o)
- .text.input    0x0000da64        0x6 contiki-iot.a(nullsec.o)
+                0x0000d8e8        0x4 contiki-iot.a(nullsec.o)
+ .text.input    0x0000d8ec        0x6 contiki-iot.a(nullsec.o)
  .text.get_overhead
-                0x0000da6a        0x4 contiki-iot.a(nullsec.o)
+                0x0000d8f2        0x4 contiki-iot.a(nullsec.o)
+ .text.wait_ready
+                0x0000d8f6       0x50 contiki-iot.a(xmem.o)
+ .text.xmem_init
+                0x0000d946       0x3e contiki-iot.a(xmem.o)
+                0x0000d946                xmem_init
+ .text.xmem_pread
+                0x0000d984       0xea contiki-iot.a(xmem.o)
+                0x0000d984                xmem_pread
  .text.spi_init
                 0x0000da6e       0x32 contiki-iot.a(spi.o)
                 0x0000da6e                spi_init
@@ -2246,106 +2246,106 @@ LOAD /usr/lib/gcc/msp430/4.6.3/mmpy-16/libcrt0.a
                                 0x7d4 (size before relaxing)
  .stab          0x000041e8      0x624 contiki-iot.a(ds2411.o)
                                 0xb40 (size before relaxing)
- .stab          0x0000480c      0xa38 contiki-iot.a(xmem.o)
-                                0xf60 (size before relaxing)
- .stab          0x00005244      0x2b8 contiki-iot.a(node-id.o)
+ .stab          0x0000480c      0x2b8 contiki-iot.a(node-id.o)
                                 0x4e0 (size before relaxing)
- .stab          0x000054fc      0x654 contiki-iot.a(sensors.o)
+ .stab          0x00004ac4      0x654 contiki-iot.a(sensors.o)
                                 0xb70 (size before relaxing)
- .stab          0x00005b50     0x25e0 contiki-iot.a(cc2420.o)
+ .stab          0x00005118     0x25e0 contiki-iot.a(cc2420.o)
                                0x2cac (size before relaxing)
- .stab          0x00008130      0x5d0 contiki-iot.a(cc2420-arch.o)
+ .stab          0x000076f8      0x5d0 contiki-iot.a(cc2420-arch.o)
                                0x1728 (size before relaxing)
- .stab          0x00008700      0x60c contiki-iot.a(uart1.o)
+ .stab          0x00007cc8      0x60c contiki-iot.a(uart1.o)
                                 0x960 (size before relaxing)
- .stab          0x00008d0c      0x27c contiki-iot.a(uart1-putchar.o)
+ .stab          0x000082d4      0x27c contiki-iot.a(uart1-putchar.o)
                                 0x7bc (size before relaxing)
- .stab          0x00008f88      0x744 contiki-iot.a(msp430.o)
+ .stab          0x00008550      0x744 contiki-iot.a(msp430.o)
                                 0xa98 (size before relaxing)
- .stab          0x000096cc      0x948 contiki-iot.a(clock.o)
+ .stab          0x00008c94      0x948 contiki-iot.a(clock.o)
                                 0xc9c (size before relaxing)
- .stab          0x0000a014      0x5dc contiki-iot.a(leds.o)
+ .stab          0x000095dc      0x5dc contiki-iot.a(leds.o)
                                 0x828 (size before relaxing)
- .stab          0x0000a5f0      0x3a8 contiki-iot.a(leds-arch.o)
+ .stab          0x00009bb8      0x3a8 contiki-iot.a(leds-arch.o)
                                 0x6fc (size before relaxing)
- .stab          0x0000a998      0x3fc contiki-iot.a(watchdog.o)
+ .stab          0x00009f60      0x3fc contiki-iot.a(watchdog.o)
                                 0x750 (size before relaxing)
- .stab          0x0000ad94      0x3cc contiki-iot.a(rtimer-arch.o)
+ .stab          0x0000a35c      0x3cc contiki-iot.a(rtimer-arch.o)
                                 0x720 (size before relaxing)
- .stab          0x0000b160      0x294 contiki-iot.a(autostart.o)
+ .stab          0x0000a728      0x294 contiki-iot.a(autostart.o)
                                 0x534 (size before relaxing)
- .stab          0x0000b3f4      0x7a4 contiki-iot.a(ctimer.o)
+ .stab          0x0000a9bc      0x7a4 contiki-iot.a(ctimer.o)
                                 0xb10 (size before relaxing)
- .stab          0x0000bb98      0x474 contiki-iot.a(energest.o)
+ .stab          0x0000b160      0x474 contiki-iot.a(energest.o)
                                 0x6fc (size before relaxing)
- .stab          0x0000c00c      0xa38 contiki-iot.a(etimer.o)
+ .stab          0x0000b5d4      0xa38 contiki-iot.a(etimer.o)
                                 0xd08 (size before relaxing)
- .stab          0x0000ca44      0xb7c contiki-iot.a(process.o)
+ .stab          0x0000c00c      0xb7c contiki-iot.a(process.o)
                                0x1014 (size before relaxing)
- .stab          0x0000d5c0      0x3d8 contiki-iot.a(rtimer.o)
+ .stab          0x0000cb88      0x3d8 contiki-iot.a(rtimer.o)
                                 0x6c0 (size before relaxing)
- .stab          0x0000d998      0x354 contiki-iot.a(timer.o)
+ .stab          0x0000cf60      0x354 contiki-iot.a(timer.o)
                                 0x594 (size before relaxing)
- .stab          0x0000dcec      0x7f8 contiki-iot.a(list.o)
+ .stab          0x0000d2b4      0x7f8 contiki-iot.a(list.o)
                                 0x804 (size before relaxing)
- .stab          0x0000e4e4      0x5c4 contiki-iot.a(memb.o)
+ .stab          0x0000daac      0x5c4 contiki-iot.a(memb.o)
                                 0xaf8 (size before relaxing)
- .stab          0x0000eaa8      0x24c contiki-iot.a(random.o)
+ .stab          0x0000e070      0x24c contiki-iot.a(random.o)
                                 0x624 (size before relaxing)
- .stab          0x0000ecf4     0x1f74 contiki-iot.a(sicslowpan.o)
+ .stab          0x0000e2bc     0x1f74 contiki-iot.a(sicslowpan.o)
                                0x2ee0 (size before relaxing)
- .stab          0x00010c68     0x2bc8 contiki-iot.a(uip6.o)
+ .stab          0x00010230     0x2bc8 contiki-iot.a(uip6.o)
                                0x378c (size before relaxing)
- .stab          0x00013830     0x13d4 contiki-iot.a(uip-ds6.o)
+ .stab          0x00012df8     0x13d4 contiki-iot.a(uip-ds6.o)
                                0x1f74 (size before relaxing)
- .stab          0x00014c04      0xcd8 contiki-iot.a(uip-ds6-nbr.o)
+ .stab          0x000141cc      0xcd8 contiki-iot.a(uip-ds6-nbr.o)
                                0x1710 (size before relaxing)
- .stab          0x000158dc     0x1260 contiki-iot.a(uip-ds6-route.o)
+ .stab          0x00014ea4     0x1260 contiki-iot.a(uip-ds6-route.o)
                                0x1de8 (size before relaxing)
- .stab          0x00016b3c      0xcf0 contiki-iot.a(uip-icmp6.o)
+ .stab          0x00016104      0xcf0 contiki-iot.a(uip-icmp6.o)
                                0x1968 (size before relaxing)
- .stab          0x0001782c      0x57c contiki-iot.a(uip-nd6.o)
+ .stab          0x00016df4      0x57c contiki-iot.a(uip-nd6.o)
                                0x1158 (size before relaxing)
- .stab          0x00017da8      0x8c4 contiki-iot.a(simple-udp.o)
+ .stab          0x00017370      0x8c4 contiki-iot.a(simple-udp.o)
                                0x19d4 (size before relaxing)
- .stab          0x0001866c     0x1410 contiki-iot.a(tcpip.o)
+ .stab          0x00017c34     0x1410 contiki-iot.a(tcpip.o)
                                0x2658 (size before relaxing)
- .stab          0x00019a7c      0x444 contiki-iot.a(uip-debug.o)
+ .stab          0x00019044      0x444 contiki-iot.a(uip-debug.o)
                                 0xbd0 (size before relaxing)
- .stab          0x00019ec0      0x444 contiki-iot.a(uip-udp-packet.)
+ .stab          0x00019488      0x444 contiki-iot.a(uip-udp-packet.)
                                 0xc00 (size before relaxing)
- .stab          0x0001a304      0xa8c contiki-iot.a(rpl.o)
+ .stab          0x000198cc      0xa8c contiki-iot.a(rpl.o)
                                0x17b8 (size before relaxing)
- .stab          0x0001ad90     0x2f10 contiki-iot.a(rpl-dag.o)
+ .stab          0x0001a358     0x2f10 contiki-iot.a(rpl-dag.o)
                                0x3c18 (size before relaxing)
- .stab          0x0001dca0      0xa50 contiki-iot.a(rpl-ext-header.)
+ .stab          0x0001d268      0xa50 contiki-iot.a(rpl-ext-header.)
                                0x180c (size before relaxing)
- .stab          0x0001e6f0     0x17ac contiki-iot.a(rpl-icmp6.o)
+ .stab          0x0001dcb8     0x17ac contiki-iot.a(rpl-icmp6.o)
                                0x25b0 (size before relaxing)
- .stab          0x0001fe9c      0x8ac contiki-iot.a(rpl-mrhof.o)
+ .stab          0x0001f464      0x8ac contiki-iot.a(rpl-mrhof.o)
                                0x159c (size before relaxing)
- .stab          0x00020748      0xbdc contiki-iot.a(rpl-timers.o)
+ .stab          0x0001fd10      0xbdc contiki-iot.a(rpl-timers.o)
                                0x18cc (size before relaxing)
- .stab          0x00021324     0x1050 contiki-iot.a(csma.o)
+ .stab          0x000208ec     0x1050 contiki-iot.a(csma.o)
                                0x1590 (size before relaxing)
- .stab          0x00022374      0x930 contiki-iot.a(framer-802154.o)
+ .stab          0x0002193c      0x930 contiki-iot.a(framer-802154.o)
                                 0xf54 (size before relaxing)
- .stab          0x00022ca4      0x3fc contiki-iot.a(framer.o)
+ .stab          0x0002226c      0x3fc contiki-iot.a(framer.o)
                                 0xc54 (size before relaxing)
- .stab          0x000230a0      0x1f8 contiki-iot.a(mac.o)
+ .stab          0x00022668      0x1f8 contiki-iot.a(mac.o)
                                 0x4ec (size before relaxing)
- .stab          0x00023298      0x2c4 contiki-iot.a(linkaddr.o)
+ .stab          0x00022860      0x2c4 contiki-iot.a(linkaddr.o)
                                 0x6c0 (size before relaxing)
- .stab          0x0002355c      0xd80 contiki-iot.a(nbr-table.o)
+ .stab          0x00022b24      0xd80 contiki-iot.a(nbr-table.o)
                                0x1428 (size before relaxing)
- .stab          0x000242dc      0xdb0 contiki-iot.a(packetbuf.o)
+ .stab          0x000238a4      0xdb0 contiki-iot.a(packetbuf.o)
                                0x1ed8 (size before relaxing)
- .stab          0x0002508c      0xaa4 contiki-iot.a(queuebuf.o)
+ .stab          0x00024654      0xaa4 contiki-iot.a(queuebuf.o)
                                0x1bb4 (size before relaxing)
- .stab          0x00025b30     0x1884 contiki-iot.a(contikimac.o)
+ .stab          0x000250f8     0x1884 contiki-iot.a(contikimac.o)
                                0x22f8 (size before relaxing)
- .stab          0x000273b4      0x75c contiki-iot.a(nullsec.o)
+ .stab          0x0002697c      0x75c contiki-iot.a(nullsec.o)
                                 0xda4 (size before relaxing)
+ .stab          0x000270d8      0xa38 contiki-iot.a(xmem.o)
+                                0xf60 (size before relaxing)
  .stab          0x00027b10      0x204 contiki-iot.a(spi.o)
                                 0x42c (size before relaxing)
  .stab          0x00027d14      0x51c contiki-iot.a(compower.o)
